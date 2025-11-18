@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -42,8 +41,7 @@ data class NavigationState(
  */
 @Composable
 private fun getNavigationState(
-    currentRoute: String,
-    navBackStackEntry: NavBackStackEntry?
+    currentRoute: String
 ): NavigationState {
     return when {
         currentRoute == NavDestination.Home.route -> NavigationState(
@@ -78,7 +76,7 @@ fun AppNavigation(ktorClient: KtorClient) {
     val currentRoute = navBackStackEntry?.destination?.route ?: NavDestination.Home.route
     
     // Create navigation state with title mapping
-    val navigationState = getNavigationState(currentRoute, navBackStackEntry)
+    val navigationState = getNavigationState(currentRoute)
 
     Scaffold(
         topBar = {
@@ -118,16 +116,16 @@ fun AppNavigation(ktorClient: KtorClient) {
 @Composable
 fun AppNavigationHost(
     navController: NavHostController,
-    ktorClient: KtorClient, // Accept KtorClient
+    ktorClient: KtorClient,
     innerPadding: PaddingValues
 ) {
     NavHost(
         navController = navController,
-        startDestination = NavDestination.Home.route, // Use route from sealed class
+        startDestination = NavDestination.Home.route,
         modifier = Modifier
-            .fillMaxSize() // Fill the available space given by Scaffold
+            .fillMaxSize()
             .background(color = RickPrimary)
-            .padding(innerPadding) // Apply padding from Scaffold
+            .padding(innerPadding)
     ) {
         composable(route = NavDestination.Home.route) {
             HomeScreen(
@@ -152,21 +150,20 @@ fun AppNavigationHost(
         }
 
         composable(
-            route = "character_episodes/{characterId}", // Assuming characterId is the right param
-            arguments = listOf(navArgument("characterId") { // Keep if needed for episodes by character
+            route = "character_episodes/{characterId}",
+            arguments = listOf(navArgument("characterId") {
                 type = NavType.IntType
             })
         ) { backStackEntry ->
             val characterId: Int = backStackEntry.arguments?.getInt("characterId") ?: -1
             CharacterEpisodeScreen(
                 characterId = characterId,
-                ktorClient = ktorClient, // Pass KtorClient here
+                ktorClient = ktorClient,
                 onBackClicked = { navController.navigateUp() }
             )
         }
 
         composable(route = NavDestination.Episodes.route) {
-            // Column might not be needed if AllEpisodesScreen handles its own layout
             AllEpisodesScreen()
         }
     }
