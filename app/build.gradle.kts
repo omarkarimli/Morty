@@ -63,6 +63,7 @@ dependencies {
 
     implementation(libs.bundles.compose)
     implementation(libs.bundles.material)
+    implementation(libs.androidx.compose.ui.text.google.fonts)
 //    implementation(libs.androidx.ui)
 //    implementation(libs.androidx.ui.graphics)
 //    implementation(libs.androidx.ui.tooling.preview)

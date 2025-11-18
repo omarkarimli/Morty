@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -12,11 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.omarkarimli.morty.R
-import com.omarkarimli.morty.ui.theme.RickTextPrimary
+import com.omarkarimli.morty.ui.theme.AppTypography
 
 @Composable
 fun MyTopBar(
@@ -28,14 +27,12 @@ fun MyTopBar(
         title = {
             val titleDescription = stringResource(R.string.accessibility_app_title, title)
             Text(
-                text = title,
-                color = RickTextPrimary,
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
                 modifier = Modifier
                     .semantics {
                         contentDescription = titleDescription
-                    }
+                    },
+                text = title,
+                style = AppTypography.titleMedium
             )
         },
         navigationIcon = {
@@ -52,7 +49,7 @@ fun MyTopBar(
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = null,
-                        tint = RickTextPrimary,
+                        tint = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.size(24.dp)
                     )
                 }

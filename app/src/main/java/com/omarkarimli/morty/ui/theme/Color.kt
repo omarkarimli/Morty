@@ -2,46 +2,74 @@ package com.omarkarimli.morty.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Material 3 Base Colors
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val primaryLight = Color(0xFF415F91)
+val onPrimaryLight = Color(0xFFFFFFFF)
+val primaryContainerLight = Color(0xFFD6E3FF)
+val onPrimaryContainerLight = Color(0xFF284777)
+val secondaryLight = Color(0xFF565F71)
+val onSecondaryLight = Color(0xFFFFFFFF)
+val secondaryContainerLight = Color(0xFFDAE2F9)
+val onSecondaryContainerLight = Color(0xFF3E4759)
+val tertiaryLight = Color(0xFF705575)
+val onTertiaryLight = Color(0xFFFFFFFF)
+val tertiaryContainerLight = Color(0xFFFAD8FD)
+val onTertiaryContainerLight = Color(0xFF573E5C)
+val errorLight = Color(0xFFBA1A1A)
+val onErrorLight = Color(0xFFFFFFFF)
+val errorContainerLight = Color(0xFFFFDAD6)
+val onErrorContainerLight = Color(0xFF93000A)
+val backgroundLight = Color(0xFFF9F9FF)
+val onBackgroundLight = Color(0xFF191C20)
+val surfaceLight = Color(0xFFF9F9FF)
+val onSurfaceLight = Color(0xFF191C20)
+val surfaceVariantLight = Color(0xFFE0E2EC)
+val onSurfaceVariantLight = Color(0xFF44474E)
+val outlineLight = Color(0xFF74777F)
+val outlineVariantLight = Color(0xFFC4C6D0)
+val scrimLight = Color(0xFF000000)
+val inverseSurfaceLight = Color(0xFF2E3036)
+val inverseOnSurfaceLight = Color(0xFFF0F0F7)
+val inversePrimaryLight = Color(0xFFAAC7FF)
+val surfaceDimLight = Color(0xFFD9D9E0)
+val surfaceBrightLight = Color(0xFFF9F9FF)
+val surfaceContainerLowestLight = Color(0xFFFFFFFF)
+val surfaceContainerLowLight = Color(0xFFF3F3FA)
+val surfaceContainerLight = Color(0xFFEDEDF4)
+val surfaceContainerHighLight = Color(0xFFE7E8EE)
+val surfaceContainerHighestLight = Color(0xFFE2E2E9)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
-
-// Rick & Morty Fresh Theme - Inspired by interdimensional sci-fi aesthetics
-// Primary Colors - Deep space with neon accents
-val RickPrimary = Color(0xFF0A0E1A)           // Deep space navy - main background
-val RickPrimaryVariant = Color(0xFF1A1F2E)    // Lighter variant for cards/surfaces
-val RickSecondary = Color(0xFF2D1B69)         // Deep purple for secondary elements
-
-// Accent Colors - Vibrant sci-fi neons
-val RickAction = Color(0xFF00D4AA)            // Bright cyan-green - primary actions
-val RickActionSecondary = Color(0xFF7C4DFF)   // Electric purple - secondary actions
-val RickAccent = Color(0xFFFF6B35)           // Portal orange - highlights/warnings
-
-// Surface Colors - Modern glass morphism
-val RickSurface = Color(0xFF151B2D)           // Card backgrounds
-val RickSurfaceVariant = Color(0xFF1E2538)    // Elevated surfaces
-val RickBackground = Color(0xFF0F1419)        // App background
-
-// Text Colors - High contrast for accessibility
-val RickTextPrimary = Color(0xFFE8F4F8)       // Primary text - off-white with blue tint
-val RickTextSecondary = Color(0xFFB0BEC5)     // Secondary text - muted blue-gray
-val RickTextTertiary = Color(0xFF78909C)      // Tertiary text - subtle gray
-
-// Status Colors - Character status indicators
-val RickStatusAlive = Color(0xFF4CAF50)       // Green for alive
-val RickStatusDead = Color(0xFFE53E3E)        // Red for dead
-val RickStatusUnknown = Color(0xFFFF9800)     // Orange for unknown
-
-// Gradient Colors - For modern effects
-val RickGradientStart = Color(0xFF1A237E)     // Deep blue
-val RickGradientEnd = Color(0xFF3949AB)       // Lighter blue
-val RickGradientAccent = Color(0xFF00BCD4)    // Cyan accent
-
-// Legacy colors for backward compatibility (mapped to new theme)
-@Deprecated("Use RickSurface instead", ReplaceWith("RickSurface"))
-val RickSurfaceOld = Color(0xffead7ce)
+val primaryDark = Color(0xFFAAC7FF)
+val onPrimaryDark = Color(0xFF0A305F)
+val primaryContainerDark = Color(0xFF284777)
+val onPrimaryContainerDark = Color(0xFFD6E3FF)
+val secondaryDark = Color(0xFFBEC6DC)
+val onSecondaryDark = Color(0xFF283141)
+val secondaryContainerDark = Color(0xFF3E4759)
+val onSecondaryContainerDark = Color(0xFFDAE2F9)
+val tertiaryDark = Color(0xFFDDBCE0)
+val onTertiaryDark = Color(0xFF3F2844)
+val tertiaryContainerDark = Color(0xFF573E5C)
+val onTertiaryContainerDark = Color(0xFFFAD8FD)
+val errorDark = Color(0xFFFFB4AB)
+val onErrorDark = Color(0xFF690005)
+val errorContainerDark = Color(0xFF93000A)
+val onErrorContainerDark = Color(0xFFFFDAD6)
+val backgroundDark = Color(0xFF08080C) // eyni
+val onBackgroundDark = Color(0xFFE2E2E9)
+val surfaceDark = Color(0xFF08080C) // eyni
+val onSurfaceDark = Color(0xFFE2E2E9)
+val surfaceVariantDark = Color(0xFF44474E)
+val onSurfaceVariantDark = Color(0xFFC4C6D0)
+val outlineDark = Color(0xFF8E9099)
+val outlineVariantDark = Color(0xFF44474E)
+val scrimDark = Color(0xFF000000)
+val inverseSurfaceDark = Color(0xFFE2E2E9)
+val inverseOnSurfaceDark = Color(0xFF2E3036)
+val inversePrimaryDark = Color(0xFF415F91)
+val surfaceDimDark = Color(0xFF111318)
+val surfaceBrightDark = Color(0xFF37393E)
+val surfaceContainerLowestDark = Color(0xFF0C0E13)
+val surfaceContainerLowDark = Color(0xFF191C20)
+val surfaceContainerDark = Color(0xFF121317)
+val surfaceContainerHighDark = Color(0xFF282A2F)
+val surfaceContainerHighestDark = Color(0xFF33353A)

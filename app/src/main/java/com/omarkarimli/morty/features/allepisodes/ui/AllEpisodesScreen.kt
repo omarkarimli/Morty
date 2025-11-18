@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -25,8 +26,6 @@ import androidx.compose.runtime.Composable
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.LoadingState
 import com.omarkarimli.morty.core.commonui.EpisodeRowComponent
-import com.omarkarimli.morty.ui.theme.RickAction
-import com.omarkarimli.morty.ui.theme.RickPrimary
 import com.omarkarimli.network.models.domain.Episode
 
 sealed interface AllEpisodesUiState {
@@ -84,7 +83,7 @@ private fun Header(seasonName: String, uniqueCharacterCount: Int) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = RickPrimary)
+            .background(color = MaterialTheme.colorScheme.primaryContainer)
     ) {
         Text(text = seasonName, color = Color.White, fontSize = 32.sp)
         Text(
@@ -98,7 +97,7 @@ private fun Header(seasonName: String, uniqueCharacterCount: Int) {
                 .padding(top = 4.dp)
                 .height(4.dp)
                 .background(
-                    color = RickAction,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     shape = RoundedCornerShape(2.dp)
                 )
         )

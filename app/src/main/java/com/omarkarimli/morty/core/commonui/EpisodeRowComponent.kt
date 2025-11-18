@@ -11,13 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.omarkarimli.morty.R
-import com.omarkarimli.morty.ui.theme.RickTextPrimary
+import com.omarkarimli.morty.ui.theme.AppTypography
 
 @Composable
 fun EpisodeRowComponent(episode: Episode) {
@@ -31,19 +29,16 @@ fun EpisodeRowComponent(episode: Episode) {
         Spacer(modifier = Modifier.width(64.dp))
         Column {
             Text(
+                modifier = Modifier.fillMaxWidth(),
                 text = episode.name,
-                fontSize = 24.sp,
-                color = RickTextPrimary,
+                style = AppTypography.titleSmall,
                 textAlign = TextAlign.End,
-                modifier = Modifier.fillMaxWidth()
             )
             Text(
+                modifier = Modifier.fillMaxWidth(),
                 text = episode.airDate,
-                fontSize = 16.sp,
-                color = RickTextPrimary,
-                fontStyle = FontStyle.Italic,
-                textAlign = TextAlign.End,
-                modifier = Modifier.fillMaxWidth()
+                style = AppTypography.bodySmall,
+                textAlign = TextAlign.End
             )
         }
     }

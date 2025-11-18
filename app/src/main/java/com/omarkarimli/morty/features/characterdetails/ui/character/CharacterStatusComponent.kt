@@ -9,13 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.omarkarimli.morty.R
-import com.omarkarimli.morty.ui.theme.MortyTheme
-import com.omarkarimli.morty.ui.theme.RickTextPrimary
 import com.omarkarimli.morty.core.utils.asColor
+import com.omarkarimli.morty.ui.theme.AppTypography
 import com.omarkarimli.network.models.domain.CharacterStatus
 
 @Composable
@@ -31,34 +28,7 @@ fun CharacterStatusComponent(characterStatus: CharacterStatus) {
     ){
         Text(
             text = stringResource(R.string.label_status, characterStatus.displayName),
-            fontSize = 20.sp,
-            color = RickTextPrimary
+            style = AppTypography.bodyMedium
         )
-
-    }
-
-}
-
-@Preview
-@Composable
-fun CharacterStatusComponentPreviewAlive() {
-    MortyTheme {
-        CharacterStatusComponent(characterStatus = CharacterStatus.Alive)
-    }
-}
-
-@Preview
-@Composable
-fun CharacterStatusComponentPreviewDead() {
-    MortyTheme {
-        CharacterStatusComponent(characterStatus = CharacterStatus.Dead)
-    }
-}
-
-@Preview
-@Composable
-fun CharacterStatusComponentPreviewUnknown() {
-    MortyTheme {
-        CharacterStatusComponent(characterStatus = CharacterStatus.Unknown)
     }
 }

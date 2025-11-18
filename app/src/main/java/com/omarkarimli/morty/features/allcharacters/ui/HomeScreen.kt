@@ -17,21 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.omarkarimli.morty.features.characterdetails.ui.character.CharacterGridItem
 import com.omarkarimli.morty.core.commonui.LoadingState
-import com.omarkarimli.network.models.domain.Character
-
-sealed interface HomeScreenViewState {
-    object Loading : HomeScreenViewState
-    data class GridDisplay(
-        val characters: List<Character> = emptyList()
-    ) : HomeScreenViewState
-}
 
 @Composable
 fun HomeScreen(
     onCharacterSelected: (Int) -> Unit,
     viewModel: HomeScreenViewModel = hiltViewModel()
 ){
-
     val viewState by viewModel.viewState.collectAsState()
 
     LaunchedEffect(key1 = viewModel, block = { viewModel.fetchInitialPage() })
@@ -75,8 +66,4 @@ fun HomeScreen(
                 })
         }
     }
-
-
-
-
 }

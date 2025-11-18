@@ -1,6 +1,5 @@
 package com.omarkarimli.morty.core.navigation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -24,21 +23,14 @@ import com.omarkarimli.morty.features.characterdetails.ui.CharacterDetailsScreen
 import com.omarkarimli.morty.features.episode.ui.CharacterEpisodeScreen
 import com.omarkarimli.morty.features.allcharacters.ui.HomeScreen
 import com.omarkarimli.morty.core.commonui.MyTopBar
-import com.omarkarimli.morty.ui.theme.RickPrimary
-import com.omarkarimli.network.KtorClient // Assuming KtorClient is needed by screens
+import com.omarkarimli.network.KtorClient
 
-/**
- * Data class representing the current navigation state
- */
 data class NavigationState(
     val currentRoute: String,
     val title: String,
     val showBackButton: Boolean = false
 )
 
-/**
- * Determines the navigation state based on the current route and back stack entry
- */
 @Composable
 private fun getNavigationState(
     currentRoute: String
@@ -124,7 +116,6 @@ fun AppNavigationHost(
         startDestination = NavDestination.Home.route,
         modifier = Modifier
             .fillMaxSize()
-            .background(color = RickPrimary)
             .padding(innerPadding)
     ) {
         composable(route = NavDestination.Home.route) {

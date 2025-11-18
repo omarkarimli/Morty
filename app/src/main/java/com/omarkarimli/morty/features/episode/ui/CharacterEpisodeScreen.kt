@@ -9,7 +9,6 @@ import com.omarkarimli.network.KtorClient
 import com.omarkarimli.network.models.domain.Episode
 import kotlinx.coroutines.launch
 import com.omarkarimli.network.models.domain.Character
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
@@ -24,6 +23,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -39,8 +39,7 @@ import com.omarkarimli.morty.core.commonui.DataPoint
 import com.omarkarimli.morty.core.commonui.DataPointComponent
 import com.omarkarimli.morty.core.commonui.LoadingState
 import com.omarkarimli.morty.core.commonui.EpisodeRowComponent
-import com.omarkarimli.morty.ui.theme.RickPrimary
-import com.omarkarimli.morty.ui.theme.RickTextPrimary
+import com.omarkarimli.morty.ui.theme.AppTypography
 
 sealed interface ScreenState {
     object Loading : ScreenState
@@ -92,7 +91,6 @@ fun CharacterEpisodeScreen(characterId: Int, ktorClient: KtorClient, onBackClick
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun MainScreen(character: Character, episodes: List<Episode>, onBackClicked: () -> Unit) {
     val episodeBySeasonMap = episodes.groupBy { it.seasonNumber }
@@ -134,23 +132,22 @@ private fun SeasonHeader(seasonNumber: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = RickPrimary)
+            .background(color = MaterialTheme.colorScheme.primaryContainer)
             .padding(top = 8.dp, bottom = 16.dp)
     ) {
         Text(
-            text = stringResource(R.string.label_season, seasonNumber),
-            color = RickTextPrimary,
-            fontSize = 32.sp,
-            lineHeight = 32.sp,
-            textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
                 .border(
                     width = 1.dp,
-                    color = RickTextPrimary,
+                    color = MaterialTheme.colorScheme.primary,
                     shape = RoundedCornerShape(8.dp)
                 )
-                .padding(vertical = 4.dp)
+                .padding(vertical = 4.dp),
+            text = stringResource(R.string.label_season, seasonNumber),
+            style = AppTypography.titleMedium,
+            color = MaterialTheme.colorScheme.primary,
+            textAlign = TextAlign.Center,
         )
     }
 }

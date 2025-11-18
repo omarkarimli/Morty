@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.navigation.AppNavigation
-import com.omarkarimli.morty.ui.theme.MortyTheme
+import com.omarkarimli.morty.ui.theme.AppTheme
 import com.omarkarimli.network.KtorClient
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         setContent {
-            MortyTheme {
+            AppTheme {
                 AppNavigation(ktorClient = ktorClient)
             }
         }
