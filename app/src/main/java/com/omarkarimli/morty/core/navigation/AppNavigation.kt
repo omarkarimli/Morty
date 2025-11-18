@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavBackStackEntry
@@ -20,12 +19,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.omarkarimli.morty.R
-import com.omarkarimli.morty.core.commonui.M3ExpressiveBottomToolbar
+import com.omarkarimli.morty.core.commonui.MyBottomBar
 import com.omarkarimli.morty.features.allepisodes.ui.AllEpisodesScreen
 import com.omarkarimli.morty.features.characterdetails.ui.CharacterDetailsScreen
 import com.omarkarimli.morty.features.episode.ui.CharacterEpisodeScreen
 import com.omarkarimli.morty.features.allcharacters.ui.HomeScreen
-import com.omarkarimli.morty.core.commonui.M3ExpressiveTopToolbar
+import com.omarkarimli.morty.core.commonui.MyTopBar
 import com.omarkarimli.morty.ui.theme.RickPrimary
 import com.omarkarimli.network.KtorClient // Assuming KtorClient is needed by screens
 
@@ -83,7 +82,7 @@ fun AppNavigation(ktorClient: KtorClient) {
 
     Scaffold(
         topBar = {
-            M3ExpressiveTopToolbar(
+            MyTopBar(
                 title = navigationState.title,
                 showBackButton = navigationState.showBackButton,
                 onBackClick = if (navigationState.showBackButton) {
@@ -92,7 +91,7 @@ fun AppNavigation(ktorClient: KtorClient) {
             )
         },
         bottomBar = {
-            M3ExpressiveBottomToolbar(
+            MyBottomBar(
                 currentRoute = currentRoute,
                 onNavigationClick = { route ->
                     navController.navigate(route) {
