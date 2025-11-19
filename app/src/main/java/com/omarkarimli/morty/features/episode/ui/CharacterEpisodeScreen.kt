@@ -9,11 +9,9 @@ import com.omarkarimli.network.KtorClient
 import com.omarkarimli.network.models.domain.Episode
 import kotlinx.coroutines.launch
 import com.omarkarimli.network.models.domain.Character
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -48,7 +47,7 @@ sealed interface ScreenState {
 }
 
 @Composable
-fun CharacterEpisodeScreen(characterId: Int, ktorClient: KtorClient, onBackClicked: () -> Unit){
+fun CharacterEpisodeScreen(characterId: Int, ktorClient: KtorClient){
     var screenState by remember { mutableStateOf<ScreenState>(ScreenState.Loading) }
     val errorMessage = stringResource(R.string.error_network)
 
@@ -73,8 +72,7 @@ fun CharacterEpisodeScreen(characterId: Int, ktorClient: KtorClient, onBackClick
         is ScreenState.Success -> {
             MainScreen(
                 character = state.character,
-                episodes = state.episodes,
-                onBackClicked = onBackClicked
+                episodes = state.episodes
             )
         }
         is ScreenState.Error -> {
@@ -92,7 +90,7 @@ fun CharacterEpisodeScreen(characterId: Int, ktorClient: KtorClient, onBackClick
 }
 
 @Composable
-private fun MainScreen(character: Character, episodes: List<Episode>, onBackClicked: () -> Unit) {
+private fun MainScreen(character: Character, episodes: List<Episode>) {
     val episodeBySeasonMap = episodes.groupBy { it.seasonNumber }
 
     Column {
@@ -129,25 +127,19 @@ private fun MainScreen(character: Character, episodes: List<Episode>, onBackClic
 
 @Composable
 private fun SeasonHeader(seasonNumber: Int) {
-    Row(
+    Text(
         modifier = Modifier
-            .fillMaxWidth()
-            .background(color = MaterialTheme.colorScheme.primaryContainer)
-            .padding(top = 8.dp, bottom = 16.dp)
-    ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(
-                    width = 1.dp,
-                    color = MaterialTheme.colorScheme.primary,
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .padding(vertical = 4.dp),
-            text = stringResource(R.string.label_season, seasonNumber),
-            style = AppTypography.titleMedium,
-            color = MaterialTheme.colorScheme.primary,
-            textAlign = TextAlign.Center,
-        )
-    }
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.primary,
+                shape = RoundedCornerShape(12.dp)
+            )
+            .clip(RoundedCornerShape(12.dp))
+            .padding(vertical = 8.dp)
+            .fillMaxWidth(),
+        text = stringResource(R.string.label_season, seasonNumber),
+        style = AppTypography.titleMedium,
+        color = MaterialTheme.colorScheme.primary,
+        textAlign = TextAlign.Center,
+    )
 }

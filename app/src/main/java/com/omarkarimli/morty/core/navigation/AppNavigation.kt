@@ -149,8 +149,7 @@ fun AppNavigationHost(
             val characterId: Int = backStackEntry.arguments?.getInt("characterId") ?: -1
             CharacterEpisodeScreen(
                 characterId = characterId,
-                ktorClient = ktorClient,
-                onBackClicked = { navController.navigateUp() }
+                ktorClient = ktorClient
             )
         }
 

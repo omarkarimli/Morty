@@ -1,6 +1,8 @@
 package com.omarkarimli.morty.features.characterdetails.ui.character
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,9 +14,12 @@ import com.omarkarimli.network.models.domain.CharacterStatus
 
 @Composable
 fun CharacterDetailsNamePlateComponent(name: String, status: CharacterStatus) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        CharacterStatusComponent(characterStatus = status)
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
         CharacterNameComponent(name = name)
+        CharacterStatusComponent(characterStatus = status)
     }
 }
 

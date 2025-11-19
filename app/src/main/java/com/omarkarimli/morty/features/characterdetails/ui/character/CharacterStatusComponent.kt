@@ -3,7 +3,7 @@ package com.omarkarimli.morty.features.characterdetails.ui.character
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,13 +19,14 @@ import com.omarkarimli.network.models.domain.CharacterStatus
 fun CharacterStatusComponent(characterStatus: CharacterStatus) {
     Row (
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.border(
-            width = 1.dp,
-            color = characterStatus.asColor(),
-            shape = RoundedCornerShape(12.dp)
-        )
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = characterStatus.asColor(),
+                shape = MaterialTheme.shapes.medium
+            )
             .padding(horizontal = 12.dp, vertical = 4.dp)
-    ){
+    ) {
         Text(
             text = stringResource(R.string.label_status, characterStatus.displayName),
             style = AppTypography.bodyMedium

@@ -8,6 +8,6 @@ import com.omarkarimli.morty.ui.theme.AppTypography
 fun CharacterNameComponent(name: String) {
     Text(
         text = name,
-        style = AppTypography.titleMedium
+        style = AppTypography.titleLarge
     )
 }

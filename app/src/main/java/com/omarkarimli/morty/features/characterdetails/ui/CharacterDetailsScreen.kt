@@ -2,6 +2,7 @@ package com.omarkarimli.morty.features.characterdetails.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -55,7 +56,8 @@ fun CharacterDetailsScreen(
 
     LazyColumn (
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(16.dp)
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ){
             when(val viewState = state){
                 CharacterDetailsViewState.Loading -> item { LoadingState() }
@@ -65,38 +67,25 @@ fun CharacterDetailsScreen(
                     }
                 }
                 is CharacterDetailsViewState.Success -> {
-
                     item {
                         CharacterDetailsNamePlateComponent(
                             name = viewState.character.name,
                             status = viewState.character.status
                         )
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
-
-                    item { Spacer(modifier = Modifier.height(8.dp)) }
-
                     // Image
                     item {
                         CharacterImage(imageUrl = viewState.character.imageUrl)
                     }
-
                     // Data points
                     items(viewState.characterDataPoints){
-                        Spacer(modifier = Modifier.height(32.dp))
                         DataPointComponent(dataPoint = it)
                     }
-
-                    item { Spacer(modifier = Modifier.height(32.dp)) }
-
                     // Button
                     item {
                         Text(
-                            text = stringResource(R.string.action_view_all_episodes),
-                            style = AppTypography.labelLarge,
-                            color = MaterialTheme.colorScheme.primary,
-                            textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .padding(horizontal = 32.dp)
                                 .border(
                                     width = 1.dp,
                                     color = MaterialTheme.colorScheme.primary,
@@ -107,7 +96,11 @@ fun CharacterDetailsScreen(
                                     onEpisodeClicked(characterId)
                                 }
                                 .padding(vertical = 8.dp)
-                                .fillMaxWidth()
+                                .fillMaxWidth(),
+                            text = stringResource(R.string.action_view_all_episodes),
+                            style = AppTypography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                            textAlign = TextAlign.Center,
                         )
                     }
                     item { Spacer(modifier = Modifier.height(64.dp)) }

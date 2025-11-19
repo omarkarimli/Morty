@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -47,15 +46,10 @@ fun CharacterListItem(
             .clickable { onClick() }
     ) {
         Box {
-            CharacterImage(
-                imageUrl = character.imageUrl,
-                modifier = Modifier
-                    .aspectRatio(1f)
-                    .clip(RoundedCornerShape(12.dp))
-            )
+            CharacterImage(imageUrl = character.imageUrl)
             CharacterStatusCircle(
-                status = character.status,
-                modifier = Modifier.padding(start = 6.dp, top = 6.dp)
+                modifier = Modifier.padding(start = 6.dp, top = 6.dp),
+                status = character.status
             )
         }
         val nameTitle = stringResource(R.string.preview_data_point_name_title)

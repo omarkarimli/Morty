@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.ui.theme.AppTypography
@@ -32,7 +33,9 @@ fun MyTopBar(
                         contentDescription = titleDescription
                     },
                 text = title,
-                style = AppTypography.headlineSmall
+                style = AppTypography.headlineSmall,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         },
         navigationIcon = {
