@@ -32,7 +32,7 @@ fun MyTopBar(
                         contentDescription = titleDescription
                     },
                 text = title,
-                style = AppTypography.titleMedium
+                style = AppTypography.headlineSmall
             )
         },
         navigationIcon = {

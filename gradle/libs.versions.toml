@@ -11,7 +11,7 @@ espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.9.4"
 activityCompose = "1.11.0"
 composeBom = "2025.11.00"
-material3 = "1.4.0"
+material3 = "1.5.0-alpha08"
 material3Nav = "1.4.0"
 material = "1.13.0"
 material-icons-core = "1.7.8"
@@ -27,7 +27,8 @@ uiTextGoogleFonts = "1.9.4"
 
 [libraries]
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+
+# Hilt
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"}
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt"}
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref ="hiltNavigation" }
@@ -56,12 +57,18 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
+# Material 3
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref="material3"}
 androidx-material = { group = "com.google.android.material", name = "material", version.ref="material"}
 androidx-material3-window = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref="material3"}
 androidx-material3-nav = { group = "androidx.compose.material3", name = "material3-adaptive-navigation-suite", version.ref="material3Nav"}
+
+# Icons
 material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "material-icons-core" }
 material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
+
+# Google Fonts
 androidx-compose-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
