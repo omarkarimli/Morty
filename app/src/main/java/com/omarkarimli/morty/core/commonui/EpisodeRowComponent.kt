@@ -19,12 +19,12 @@ import com.omarkarimli.morty.ui.theme.AppTypography
 
 @Composable
 fun EpisodeRowComponent(episode: Episode) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        DataPointComponent(
-            dataPoint = DataPoint(
-                title = stringResource(R.string.preview_data_point_episode_title),
-                description = episode.episodeNumber.toString()
-            )
+    Row(
+        verticalAlignment = Alignment.Top,
+    ) {
+        Text(
+            text = stringResource(R.string.preview_data_point_episode_title) + " " + episode.episodeNumber.toString(),
+            style = AppTypography.titleSmall
         )
         Spacer(modifier = Modifier.width(64.dp))
         Column {
