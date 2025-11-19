@@ -1,5 +1,6 @@
 package com.omarkarimli.morty.features.episode.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -12,17 +13,19 @@ import com.omarkarimli.network.models.domain.Character
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -94,24 +97,41 @@ private fun MainScreen(character: Character, episodes: List<Episode>) {
     val episodeBySeasonMap = episodes.groupBy { it.seasonNumber }
 
     Column {
-        LazyColumn(contentPadding = PaddingValues(all = 16.dp)) {
+        LazyColumn(
+            contentPadding = PaddingValues(
+                start = 16.dp,
+                end = 16.dp,
+                top = 8.dp,
+                bottom = 16.dp
+            )
+        ) {
             item { CharacterNameComponent(name = character.name) }
             item { Spacer(modifier = Modifier.height(8.dp)) }
             item {
                 LazyRow {
                     episodeBySeasonMap.forEach { mapEntry ->
                         item {
-                            val title = stringResource(R.string.label_season, mapEntry.key)
-                            val description = stringResource(R.string.label_episode_count, mapEntry.value.size)
-                            DataPointComponent(dataPoint = DataPoint(title, description))
-                            Spacer(modifier = Modifier.width(32.dp))
+                            Row(modifier = Modifier.height(IntrinsicSize.Min)) {
+                                val title = stringResource(R.string.label_season, mapEntry.key)
+                                val description = stringResource(R.string.label_episode_count, mapEntry.value.size)
+                                DataPointComponent(dataPoint = DataPoint(title, description))
+                                if (mapEntry.key != episodeBySeasonMap.keys.last()) {
+                                    VerticalDivider(
+                                        modifier = Modifier
+                                            .fillMaxHeight()
+                                            .padding(horizontal = 16.dp),
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        thickness = 1.dp
+                                    )
+                                }
+                            }
                         }
                     }
                 }
             }
-            item { Spacer(modifier = Modifier.height(16.dp)) }
+            item { Spacer(modifier = Modifier.height(24.dp)) }
             item { CharacterImage(imageUrl = character.imageUrl) }
-            item { Spacer(modifier = Modifier.height(32.dp)) }
+            item { Spacer(modifier = Modifier.height(16.dp)) }
 
             episodeBySeasonMap.forEach { mapEntry ->
                 stickyHeader { SeasonHeader(seasonNumber = mapEntry.key) }
@@ -129,12 +149,16 @@ private fun MainScreen(character: Character, episodes: List<Episode>) {
 private fun SeasonHeader(seasonNumber: Int) {
     Text(
         modifier = Modifier
+            .background(
+                color = MaterialTheme.colorScheme.surface,
+                shape = MaterialTheme.shapes.medium
+            )
             .border(
                 width = 1.dp,
                 color = MaterialTheme.colorScheme.primary,
-                shape = RoundedCornerShape(12.dp)
+                shape = MaterialTheme.shapes.medium
             )
-            .clip(RoundedCornerShape(12.dp))
+            .clip(MaterialTheme.shapes.medium)
             .padding(vertical = 8.dp)
             .fillMaxWidth(),
         text = stringResource(R.string.label_season, seasonNumber),
