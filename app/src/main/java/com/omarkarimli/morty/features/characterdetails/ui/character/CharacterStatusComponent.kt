@@ -29,7 +29,9 @@ fun CharacterStatusComponent(characterStatus: CharacterStatus) {
     ) {
         Text(
             text = stringResource(R.string.label_status, characterStatus.displayName),
-            style = AppTypography.bodyMedium
+            style = AppTypography.bodyMedium,
+            softWrap = false,
+            maxLines = 1
         )
     }
 }

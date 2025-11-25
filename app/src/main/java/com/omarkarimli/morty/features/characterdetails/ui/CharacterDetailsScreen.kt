@@ -71,7 +71,7 @@ fun CharacterDetailsScreen(
                             name = viewState.character.name,
                             status = viewState.character.status
                         )
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
                     }
                     // Image
                     item {
