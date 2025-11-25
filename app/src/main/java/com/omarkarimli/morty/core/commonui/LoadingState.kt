@@ -17,5 +17,6 @@ fun LoadingState(modifier: Modifier = Modifier) {
             .shimmer()
             .background(MaterialTheme.colorScheme.surfaceVariant),
         contentAlignment = Alignment.Center
-    )
+    ) {
+    }
 }
