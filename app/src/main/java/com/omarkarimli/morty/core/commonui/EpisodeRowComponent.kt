@@ -23,7 +23,9 @@ fun EpisodeRowComponent(episode: Episode) {
         verticalAlignment = Alignment.Top,
     ) {
         Text(
-            text = stringResource(R.string.preview_data_point_episode_title) + " " + episode.episodeNumber.toString(),
+            text = stringResource(R.string.preview_data_point_episode_title)
+                    + " "
+                    + episode.episodeNumber.toString(),
             style = AppTypography.titleSmall
         )
         Spacer(modifier = Modifier.width(64.dp))
