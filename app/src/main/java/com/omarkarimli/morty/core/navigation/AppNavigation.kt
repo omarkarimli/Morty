@@ -135,8 +135,7 @@ fun AppNavigationHost(
             val characterId: Int = backStackEntry.arguments?.getInt("characterId") ?: -1
             CharacterDetailsScreen(
                 characterId = characterId,
-                onEpisodeClicked = { episodeId -> navController.navigate("character_episodes/$episodeId") },
-                onBackClicked = { navController.navigateUp() }
+                onEpisodeClicked = { episodeId -> navController.navigate("character_episodes/$episodeId") }
             )
         }
 

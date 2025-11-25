@@ -45,8 +45,7 @@ sealed interface CharacterDetailsViewState {
 fun CharacterDetailsScreen(
     characterId: Int,
     viewModel: CharacterDetailsViewModel = hiltViewModel(),
-    onEpisodeClicked: (Int) -> Unit,
-    onBackClicked: () -> Unit
+    onEpisodeClicked: (Int) -> Unit
 ){
     LaunchedEffect(key1 = Unit, block = {
         viewModel.fetchCharacter(characterId)
