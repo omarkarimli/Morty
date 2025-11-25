@@ -35,7 +35,7 @@ fun CharacterGridItem(
         Text(
             modifier = Modifier.padding(vertical = 12.dp),
             text = character.name,
-            style = AppTypography.bodyMedium
+            style = AppTypography.titleMedium
         )
     }
 }
