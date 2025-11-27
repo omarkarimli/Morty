@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.EpisodeRowComponent
+import com.omarkarimli.morty.core.commonui.IndicatorContainer
 import com.omarkarimli.morty.core.commonui.LoadingState
 import com.omarkarimli.morty.ui.theme.AppTypography
 import com.omarkarimli.network.models.domain.Episode
@@ -171,17 +172,4 @@ private fun Header(
             )
         }
     }
-}
-
-@Composable
-private fun IndicatorContainer() {
-    Box(
-        modifier = Modifier
-            .background(
-                color = MaterialTheme.colorScheme.primaryContainer,
-                shape = MaterialTheme.shapes.small
-            )
-            .fillMaxHeight()
-            .width(6.dp)
-    )
 }

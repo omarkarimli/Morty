@@ -1,7 +1,14 @@
 package com.omarkarimli.morty.features.episode.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,10 +20,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -30,7 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -42,6 +48,7 @@ import com.omarkarimli.morty.core.commonui.CharacterNameComponent
 import com.omarkarimli.morty.core.commonui.DataPoint
 import com.omarkarimli.morty.core.commonui.DataPointComponent
 import com.omarkarimli.morty.core.commonui.EpisodeRowComponent
+import com.omarkarimli.morty.core.commonui.IndicatorContainer
 import com.omarkarimli.morty.core.commonui.LoadingState
 import com.omarkarimli.morty.ui.theme.AppTypography
 import com.omarkarimli.network.KtorClient
@@ -150,12 +157,26 @@ private fun MainScreen(character: Character, episodes: List<Episode>) {
                         expandedSeason = if (isExpanded) null else seasonNumber
                     }
                 )
+                if (mapEntry.key != episodeBySeasonMap.keys.last()) {
+                    HorizontalDivider(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 18.dp)
+                    )
+                }
             }
             item { Spacer(modifier = Modifier.height(16.dp)) }
-            if (isExpanded) {
-                items(mapEntry.value) { episode ->
-                    EpisodeRowComponent(episode = episode)
-                    Spacer(modifier = Modifier.height(16.dp))
+
+            mapEntry.value.forEach { episode ->
+                item(key = episode.id) {
+                    AnimatedVisibility(
+                        visible = isExpanded,
+                        enter = expandVertically() + fadeIn(),
+                        exit = shrinkVertically() + fadeOut()
+                    ) {
+                        EpisodeRowComponent(episode = episode)
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
                 }
             }
         }
@@ -163,37 +184,40 @@ private fun MainScreen(character: Character, episodes: List<Episode>) {
 }
 
 @Composable
-private fun SeasonHeader(seasonNumber: Int, isExpanded: Boolean, onToggle: () -> Unit) {
+private fun SeasonHeader(
+    seasonNumber: Int,
+    isExpanded: Boolean,
+    onToggle: () -> Unit
+) {
+    val rotation by animateFloatAsState(
+        targetValue = if (isExpanded) 180f else 0f,
+        label = "arrowRotation"
+    )
+
     Row(
         modifier = Modifier
-            .background(
-                color = MaterialTheme.colorScheme.surface,
-                shape = MaterialTheme.shapes.medium
-            )
-            .border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.primary,
-                shape = MaterialTheme.shapes.medium
-            )
-            .clip(MaterialTheme.shapes.medium)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surface)
+            .clickable { onToggle() }
+            .padding(vertical = 8.dp)
+            .height(IntrinsicSize.Min),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Spacer(modifier = Modifier.width(48.dp))
-        Text(
-            modifier = Modifier
-                .padding(vertical = 8.dp)
-                .weight(1f),
-            text = stringResource(R.string.label_season, seasonNumber),
-            style = AppTypography.titleMedium,
-            color = MaterialTheme.colorScheme.primary,
-            textAlign = TextAlign.Center,
-        )
+        IndicatorContainer()
+        Spacer(modifier = Modifier.width(12.dp))
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(
+                text = stringResource(R.string.label_season, seasonNumber),
+                style = AppTypography.titleLarge
+            )
+        }
         IconButton(onClick = onToggle) {
             Icon(
-                imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                imageVector = Icons.Default.KeyboardArrowDown,
                 contentDescription = if (isExpanded) "Collapse" else "Expand",
-                tint = MaterialTheme.colorScheme.primary
+                modifier = Modifier.rotate(rotation)
             )
         }
     }
