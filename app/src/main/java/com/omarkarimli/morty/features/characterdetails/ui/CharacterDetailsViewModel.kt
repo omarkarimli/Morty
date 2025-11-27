@@ -3,7 +3,6 @@ package com.omarkarimli.morty.features.characterdetails.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omarkarimli.morty.core.commonui.DataPoint
-import com.omarkarimli.morty.core.constants.ErrorConstants
 import com.omarkarimli.morty.core.constants.UiConstants
 import com.omarkarimli.morty.features.characterdetails.domain.repository.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,7 +44,7 @@ class CharacterDetailsViewModel @Inject constructor(
         }.onFailure { exception ->
             _internalStorageFlow.update {
                 return@update CharacterDetailsViewState.Error(
-                    message = exception.message ?: ErrorConstants.UNKNOWN_ERROR
+                    message = exception.message ?: UiConstants.UNKNOWN_ERROR
                 )
             }
         }
