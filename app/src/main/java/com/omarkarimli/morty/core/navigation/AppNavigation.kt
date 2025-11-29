@@ -1,11 +1,16 @@
 package com.omarkarimli.morty.core.navigation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -18,12 +23,13 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.MyBottomBar
+import com.omarkarimli.morty.core.commonui.MyTopBar
+import com.omarkarimli.morty.features.allcharacters.ui.HomeScreen
 import com.omarkarimli.morty.features.allepisodes.ui.AllEpisodesScreen
 import com.omarkarimli.morty.features.characterdetails.ui.CharacterDetailsScreen
 import com.omarkarimli.morty.features.episode.ui.CharacterEpisodeScreen
-import com.omarkarimli.morty.features.allcharacters.ui.HomeScreen
-import com.omarkarimli.morty.core.commonui.MyTopBar
 import com.omarkarimli.network.KtorClient
+import kotlinx.coroutines.launch
 
 data class NavigationState(
     val currentRoute: String,
@@ -61,14 +67,33 @@ private fun getNavigationState(
     }
 }
 
+private const val MAIN_SCREEN_ROUTE = "main_screen?index={index}"
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppNavigation(ktorClient: KtorClient) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: NavDestination.Home.route
+    val currentRoute = navBackStackEntry?.destination?.route ?: MAIN_SCREEN_ROUTE
     
+    // Pager state for top-level tabs
+    val pagerState = rememberPagerState(pageCount = { 2 })
+    val coroutineScope = rememberCoroutineScope()
+
+    // Determine effective route for UI logic (BottomBar, TopBar)
+    // If we are on the main screen container, the effective route depends on the active pager tab.
+    val effectiveRoute = if (currentRoute == MAIN_SCREEN_ROUTE) {
+        when (pagerState.currentPage) {
+            0 -> NavDestination.Home.route
+            1 -> NavDestination.Episodes.route
+            else -> NavDestination.Home.route
+        }
+    } else {
+        currentRoute
+    }
+
     // Create navigation state with title mapping
-    val navigationState = getNavigationState(currentRoute)
+    val navigationState = getNavigationState(effectiveRoute)
 
     Scaffold(
         topBar = {
@@ -82,14 +107,33 @@ fun AppNavigation(ktorClient: KtorClient) {
         },
         bottomBar = {
             MyBottomBar(
-                currentRoute = currentRoute,
+                currentRoute = effectiveRoute,
                 onNavigationClick = { route ->
-                    navController.navigate(route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                    // Handle navigation based on target route
+                    when (route) {
+                        NavDestination.Home.route -> {
+                            if (currentRoute == MAIN_SCREEN_ROUTE) {
+                                coroutineScope.launch { pagerState.animateScrollToPage(0) }
+                            } else {
+                                navController.navigate("main_screen?index=0") {
+                                    popUpTo(navController.graph.findStartDestination().id)
+                                    launchSingleTop = true
+                                }
+                            }
                         }
-                        launchSingleTop = true
-                        restoreState = true
+                        NavDestination.Episodes.route -> {
+                            if (currentRoute == MAIN_SCREEN_ROUTE) {
+                                coroutineScope.launch { pagerState.animateScrollToPage(1) }
+                            } else {
+                                navController.navigate("main_screen?index=1") {
+                                    popUpTo(navController.graph.findStartDestination().id)
+                                    launchSingleTop = true
+                                }
+                            }
+                        }
+                        else -> {
+                            navController.navigate(route)
+                        }
                     }
                 }
             )
@@ -98,32 +142,52 @@ fun AppNavigation(ktorClient: KtorClient) {
         AppNavigationHost(
             navController = navController,
             ktorClient = ktorClient,
-            innerPadding = innerPadding
+            innerPadding = innerPadding,
+            pagerState = pagerState
         )
     }
 }
 
-
-
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppNavigationHost(
     navController: NavHostController,
     ktorClient: KtorClient,
-    innerPadding: PaddingValues
+    innerPadding: PaddingValues,
+    pagerState: androidx.compose.foundation.pager.PagerState
 ) {
     NavHost(
         navController = navController,
-        startDestination = NavDestination.Home.route,
+        startDestination = MAIN_SCREEN_ROUTE,
         modifier = Modifier
             .fillMaxSize()
             .padding(innerPadding)
     ) {
-        composable(route = NavDestination.Home.route) {
-            HomeScreen(
-                onCharacterSelected = { characterId ->
-                    navController.navigate("character_details/$characterId")
+        composable(
+            route = MAIN_SCREEN_ROUTE,
+            arguments = listOf(navArgument("index") {
+                type = NavType.IntType
+                defaultValue = 0
+            })
+        ) { backStackEntry ->
+            val index = backStackEntry.arguments?.getInt("index") ?: 0
+            LaunchedEffect(index) {
+                pagerState.scrollToPage(index)
+            }
+
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize()
+            ) { page ->
+                when (page) {
+                    0 -> HomeScreen(
+                        onCharacterSelected = { characterId ->
+                            navController.navigate("character_details/$characterId")
+                        }
+                    )
+                    1 -> AllEpisodesScreen()
                 }
-            )
+            }
         }
 
         composable(
@@ -150,10 +214,6 @@ fun AppNavigationHost(
                 characterId = characterId,
                 ktorClient = ktorClient
             )
-        }
-
-        composable(route = NavDestination.Episodes.route) {
-            AllEpisodesScreen()
         }
     }
 }
