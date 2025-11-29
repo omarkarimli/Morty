@@ -1,5 +1,6 @@
 package com.omarkarimli.morty.core.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -67,33 +68,26 @@ private fun getNavigationState(
     }
 }
 
-private const val MAIN_SCREEN_ROUTE = "main_screen?index={index}"
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppNavigation(ktorClient: KtorClient) {
-    val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: MAIN_SCREEN_ROUTE
-    
-    // Pager state for top-level tabs
+    val homeNavController = rememberNavController()
     val pagerState = rememberPagerState(pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
 
-    // Determine effective route for UI logic (BottomBar, TopBar)
-    // If we are on the main screen container, the effective route depends on the active pager tab.
-    val effectiveRoute = if (currentRoute == MAIN_SCREEN_ROUTE) {
-        when (pagerState.currentPage) {
-            0 -> NavDestination.Home.route
-            1 -> NavDestination.Episodes.route
-            else -> NavDestination.Home.route
-        }
+    // Observe Home Nav Stack
+    val homeBackStackEntry by homeNavController.currentBackStackEntryAsState()
+    val homeCurrentRoute = homeBackStackEntry?.destination?.route
+
+    // Determine global current route/state
+    val currentRoute = if (pagerState.currentPage == 0) {
+        homeCurrentRoute ?: NavDestination.Home.route
     } else {
-        currentRoute
+        NavDestination.Episodes.route
     }
 
     // Create navigation state with title mapping
-    val navigationState = getNavigationState(effectiveRoute)
+    val navigationState = getNavigationState(currentRoute)
 
     Scaffold(
         topBar = {
@@ -101,119 +95,89 @@ fun AppNavigation(ktorClient: KtorClient) {
                 title = navigationState.title,
                 showBackButton = navigationState.showBackButton,
                 onBackClick = if (navigationState.showBackButton) {
-                    { navController.navigateUp() }
+                    {
+                        if (pagerState.currentPage == 0) {
+                            homeNavController.navigateUp()
+                        }
+                    }
                 } else null,
             )
         },
         bottomBar = {
             MyBottomBar(
-                currentRoute = effectiveRoute,
+                currentRoute = currentRoute,
                 onNavigationClick = { route ->
                     // Handle navigation based on target route
                     when (route) {
                         NavDestination.Home.route -> {
-                            if (currentRoute == MAIN_SCREEN_ROUTE) {
-                                coroutineScope.launch { pagerState.animateScrollToPage(0) }
-                            } else {
-                                navController.navigate("main_screen?index=0") {
-                                    popUpTo(navController.graph.findStartDestination().id)
-                                    launchSingleTop = true
-                                }
-                            }
+                            coroutineScope.launch { pagerState.animateScrollToPage(0) }
                         }
                         NavDestination.Episodes.route -> {
-                            if (currentRoute == MAIN_SCREEN_ROUTE) {
-                                coroutineScope.launch { pagerState.animateScrollToPage(1) }
-                            } else {
-                                navController.navigate("main_screen?index=1") {
-                                    popUpTo(navController.graph.findStartDestination().id)
-                                    launchSingleTop = true
-                                }
-                            }
-                        }
-                        else -> {
-                            navController.navigate(route)
+                            coroutineScope.launch { pagerState.animateScrollToPage(1) }
                         }
                     }
                 }
             )
         }
     ) { innerPadding ->
-        AppNavigationHost(
-            navController = navController,
-            ktorClient = ktorClient,
-            innerPadding = innerPadding,
-            pagerState = pagerState
-        )
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun AppNavigationHost(
-    navController: NavHostController,
-    ktorClient: KtorClient,
-    innerPadding: PaddingValues,
-    pagerState: androidx.compose.foundation.pager.PagerState
-) {
-    NavHost(
-        navController = navController,
-        startDestination = MAIN_SCREEN_ROUTE,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(innerPadding)
-    ) {
-        composable(
-            route = MAIN_SCREEN_ROUTE,
-            arguments = listOf(navArgument("index") {
-                type = NavType.IntType
-                defaultValue = 0
-            })
-        ) { backStackEntry ->
-            val index = backStackEntry.arguments?.getInt("index") ?: 0
-            LaunchedEffect(index) {
-                pagerState.scrollToPage(index)
-            }
-
-            HorizontalPager(
-                state = pagerState,
-                modifier = Modifier.fillMaxSize()
-            ) { page ->
-                when (page) {
-                    0 -> HomeScreen(
-                        onCharacterSelected = { characterId ->
-                            navController.navigate("character_details/$characterId")
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) { page ->
+            when (page) {
+                0 -> {
+                    // Home Nav Host
+                    NavHost(
+                        navController = homeNavController,
+                        startDestination = NavDestination.Home.route
+                    ) {
+                        composable(NavDestination.Home.route) {
+                            HomeScreen(
+                                onCharacterSelected = { characterId ->
+                                    homeNavController.navigate("character_details/$characterId")
+                                }
+                            )
                         }
-                    )
-                    1 -> AllEpisodesScreen()
+                        composable(
+                            route = "character_details/{characterId}",
+                            arguments = listOf(navArgument("characterId") {
+                                type = NavType.IntType
+                            })
+                        ) { backStackEntry ->
+                            val characterId: Int =
+                                backStackEntry.arguments?.getInt("characterId") ?: -1
+                            CharacterDetailsScreen(
+                                characterId = characterId,
+                                onEpisodeClicked = { episodeId ->
+                                    homeNavController.navigate("character_episodes/$episodeId")
+                                }
+                            )
+                        }
+                        composable(
+                            route = "character_episodes/{characterId}",
+                            arguments = listOf(navArgument("characterId") {
+                                type = NavType.IntType
+                            })
+                        ) { backStackEntry ->
+                            val characterId: Int =
+                                backStackEntry.arguments?.getInt("characterId") ?: -1
+                            CharacterEpisodeScreen(
+                                characterId = characterId,
+                                ktorClient = ktorClient
+                            )
+                        }
+                    }
+                }
+                1 -> {
+                    AllEpisodesScreen()
+                    // Handle back press on Episodes tab to go to Home
+                    BackHandler {
+                        coroutineScope.launch { pagerState.animateScrollToPage(0) }
+                    }
                 }
             }
-        }
-
-        composable(
-            route = "character_details/{characterId}",
-            arguments = listOf(navArgument("characterId") {
-                type = NavType.IntType
-            })
-        ) { backStackEntry ->
-            val characterId: Int = backStackEntry.arguments?.getInt("characterId") ?: -1
-            CharacterDetailsScreen(
-                characterId = characterId,
-                onEpisodeClicked = { episodeId -> navController.navigate("character_episodes/$episodeId") }
-            )
-        }
-
-        composable(
-            route = "character_episodes/{characterId}",
-            arguments = listOf(navArgument("characterId") {
-                type = NavType.IntType
-            })
-        ) { backStackEntry ->
-            val characterId: Int = backStackEntry.arguments?.getInt("characterId") ?: -1
-            CharacterEpisodeScreen(
-                characterId = characterId,
-                ktorClient = ktorClient
-            )
         }
     }
 }
