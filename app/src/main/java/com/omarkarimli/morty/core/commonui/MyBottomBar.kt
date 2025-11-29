@@ -14,7 +14,8 @@ fun MyBottomBar(
 ) {
     val navigationItems = listOf(
         NavDestination.Home,
-        NavDestination.Episodes
+        NavDestination.Episodes,
+        NavDestination.Dynamic
     )
 
     NavigationBar {
@@ -24,6 +25,7 @@ fun MyBottomBar(
                         currentRoute.contains("character_details") ||
                         currentRoute.contains("character_episodes")
                 NavDestination.Episodes.route -> currentRoute == destination.route
+                NavDestination.Dynamic.route -> currentRoute == destination.route
                 else -> currentRoute == destination.route
             }
 

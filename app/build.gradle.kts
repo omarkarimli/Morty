@@ -91,4 +91,8 @@ dependencies {
 
     // Shimmer
     implementation(libs.compose.shimmer)
+
+    // Play Feature Delivery
+    implementation(libs.play.feature.delivery)
+    implementation(libs.play.feature.delivery.ktx)
 }

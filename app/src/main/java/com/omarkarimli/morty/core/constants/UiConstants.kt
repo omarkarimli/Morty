@@ -10,6 +10,7 @@ object UiConstants {
     // Navigation destination titles (internal constants)
     const val NAV_DESTINATION_HOME = "Home"
     const val NAV_DESTINATION_EPISODES = "Episodes"
+    const val NAV_DESTINATION_DYNAMIC = "Dynamic"
     
     // Data point labels (internal constants)
     const val DATA_POINT_LAST_KNOWN_LOCATION = "Last known location"

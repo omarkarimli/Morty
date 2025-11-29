@@ -25,6 +25,7 @@ hiltNavigation = "1.3.0"
 coreSplashscreen = "1.2.0"
 uiTextGoogleFonts = "1.9.4"
 composeShimmer = "1.3.3"
+playFeatureDelivery = "2.1.0"
 
 [libraries]
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
@@ -74,6 +75,10 @@ androidx-compose-ui-text-google-fonts = { group = "androidx.compose.ui", name = 
 
 # Shimmer
 compose-shimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version.ref = "composeShimmer" }
+
+# Feature Delivery
+play-feature-delivery = { module = "com.google.android.play:feature-delivery", version.ref = "playFeatureDelivery" }
+play-feature-delivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version.ref = "playFeatureDelivery" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

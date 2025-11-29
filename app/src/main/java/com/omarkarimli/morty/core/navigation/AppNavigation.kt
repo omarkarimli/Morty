@@ -25,6 +25,7 @@ import com.omarkarimli.morty.core.commonui.MyTopBar
 import com.omarkarimli.morty.features.allcharacters.ui.HomeScreen
 import com.omarkarimli.morty.features.allepisodes.ui.AllEpisodesScreen
 import com.omarkarimli.morty.features.characterdetails.ui.CharacterDetailsScreen
+import com.omarkarimli.morty.features.dynamic.DownloadScreen
 import com.omarkarimli.morty.features.episode.ui.CharacterEpisodeScreen
 import com.omarkarimli.network.KtorClient
 import kotlinx.coroutines.launch
@@ -48,6 +49,10 @@ private fun getNavigationState(
             currentRoute = currentRoute,
             title = stringResource(R.string.nav_title_episodes)
         )
+        currentRoute == NavDestination.Dynamic.route -> NavigationState(
+            currentRoute = currentRoute,
+            title = "Dynamic Feature"
+        )
         currentRoute.contains("character_details") -> NavigationState(
             currentRoute = currentRoute,
             title = stringResource(R.string.nav_title_character_details),
@@ -69,7 +74,7 @@ private fun getNavigationState(
 @Composable
 fun AppNavigation(ktorClient: KtorClient) {
     val homeNavController = rememberNavController()
-    val pagerState = rememberPagerState(pageCount = { 2 })
+    val pagerState = rememberPagerState(pageCount = { 3 })
     val coroutineScope = rememberCoroutineScope()
 
     // Observe Home Nav Stack
@@ -77,10 +82,11 @@ fun AppNavigation(ktorClient: KtorClient) {
     val homeCurrentRoute = homeBackStackEntry?.destination?.route
 
     // Determine global current route/state
-    val currentRoute = if (pagerState.currentPage == 0) {
-        homeCurrentRoute ?: NavDestination.Home.route
-    } else {
-        NavDestination.Episodes.route
+    val currentRoute = when (pagerState.currentPage) {
+        0 -> homeCurrentRoute ?: NavDestination.Home.route
+        1 -> NavDestination.Episodes.route
+        2 -> NavDestination.Dynamic.route
+        else -> NavDestination.Home.route
     }
 
     // Create navigation state with title mapping
@@ -118,6 +124,9 @@ fun AppNavigation(ktorClient: KtorClient) {
                         }
                         NavDestination.Episodes.route -> {
                             coroutineScope.launch { pagerState.animateScrollToPage(1) }
+                        }
+                        NavDestination.Dynamic.route -> {
+                            coroutineScope.launch { pagerState.animateScrollToPage(2) }
                         }
                     }
                 }
@@ -178,6 +187,12 @@ fun AppNavigation(ktorClient: KtorClient) {
                 1 -> {
                     AllEpisodesScreen()
                     // Handle back press on Episodes tab to go to Home
+                    BackHandler {
+                        coroutineScope.launch { pagerState.animateScrollToPage(0) }
+                    }
+                }
+                2 -> {
+                    DownloadScreen()
                     BackHandler {
                         coroutineScope.launch { pagerState.animateScrollToPage(0) }
                     }
