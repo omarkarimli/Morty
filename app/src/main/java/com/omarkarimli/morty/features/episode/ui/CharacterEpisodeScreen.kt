@@ -37,11 +37,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.CharacterImage
 import com.omarkarimli.morty.core.commonui.CharacterNameComponent
@@ -94,12 +92,11 @@ fun CharacterEpisodeScreen(characterId: Int, ktorClient: KtorClient){
         is ScreenState.Error -> {
             Text(
                 text = state.message,
-                color = Color.White,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(32.dp),
                 textAlign = TextAlign.Center,
-                fontSize = 26.sp
+                style = AppTypography.titleLarge
             )
         }
     }
