@@ -10,9 +10,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.omarkarimli.network.models.domain.CharacterStatus
 import com.omarkarimli.morty.core.utils.asColor
+import com.omarkarimli.morty.ui.theme.Dimens
 
 @Composable
 fun CharacterStatusCircle(
@@ -25,13 +25,13 @@ fun CharacterStatusCircle(
                 color = MaterialTheme.colorScheme.surface,
                 shape = CircleShape
             )
-            .size(16.dp),
+            .size(Dimens.dp16),
         contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(4.dp)
+                .padding(Dimens.dp4)
                 .background(color = status.asColor(), shape = CircleShape)
         )
     }

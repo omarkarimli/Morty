@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.omarkarimli.morty.ui.theme.Dimens
 import com.valentinilk.shimmer.shimmer
 
 @Composable
@@ -32,30 +32,30 @@ private fun LoadingItem() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(Dimens.dp16),
+        horizontalArrangement = Arrangement.spacedBy(Dimens.dp16)
     ) {
         Box(
             modifier = Modifier
-                .size(100.dp)
+                .size(Dimens.dp100)
                 .shimmer()
                 .background(MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.large)
         )
         Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(Dimens.dp8),
             modifier = Modifier.weight(1f)
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(20.dp)
+                    .height(Dimens.dp20)
                     .shimmer()
                     .background(MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium)
             )
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
-                    .height(20.dp)
+                    .height(Dimens.dp20)
                     .shimmer()
                     .background(MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium)
             )

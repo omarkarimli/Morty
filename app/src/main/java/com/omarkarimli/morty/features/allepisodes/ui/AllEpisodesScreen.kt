@@ -37,13 +37,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.EpisodeRowComponent
 import com.omarkarimli.morty.core.commonui.IndicatorContainer
 import com.omarkarimli.morty.core.commonui.LoadingState
 import com.omarkarimli.morty.ui.theme.AppTypography
+import com.omarkarimli.morty.ui.theme.Dimens
 import com.omarkarimli.network.models.domain.Episode
 
 sealed interface AllEpisodesUiState {
@@ -83,9 +83,9 @@ fun AllEpisodesScreen(
 
             LazyColumn(
                 contentPadding = PaddingValues(
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = 16.dp
+                    start = Dimens.dp16,
+                    end = Dimens.dp16,
+                    bottom = Dimens.dp16
                 ),
             ) {
                 state.data.forEach { mapEntry ->
@@ -105,7 +105,7 @@ fun AllEpisodesScreen(
                             HorizontalDivider(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(start = 18.dp)
+                                    .padding(start = Dimens.dp18)
                             )
                         }
                     }
@@ -144,12 +144,12 @@ private fun Header(
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface)
             .clickable { onToggle() }
-            .padding(vertical = 8.dp)
+            .padding(vertical = Dimens.dp8)
             .height(IntrinsicSize.Min),
         verticalAlignment = Alignment.CenterVertically
     ) {
         IndicatorContainer()
-        Spacer(modifier = Modifier.width(12.dp))
+        Spacer(modifier = Modifier.width(Dimens.dp12))
         Column(
             modifier = Modifier.weight(1f)
         ) {

@@ -14,9 +14,9 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.omarkarimli.morty.features.characterdetails.ui.character.CharacterGridItem
 import com.omarkarimli.morty.core.commonui.LoadingState
+import com.omarkarimli.morty.ui.theme.Dimens
 
 @Composable
 fun HomeScreen(
@@ -50,9 +50,9 @@ fun HomeScreen(
         is HomeScreenViewState.GridDisplay ->{
             LazyVerticalGrid(
                 state = scrollState,
-                contentPadding = PaddingValues(all = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(all = Dimens.dp16),
+                verticalArrangement = Arrangement.spacedBy(Dimens.dp8),
+                horizontalArrangement = Arrangement.spacedBy(Dimens.dp8),
                 columns = GridCells.Fixed(2),
                 content = {
                     items(

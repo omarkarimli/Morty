@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.omarkarimli.morty.ui.theme.Dimens
 
 @Composable
 fun IndicatorContainer() {
@@ -18,6 +18,6 @@ fun IndicatorContainer() {
                 shape = MaterialTheme.shapes.small
             )
             .fillMaxHeight()
-            .width(6.dp)
+            .width(Dimens.dp6)
     )
 }

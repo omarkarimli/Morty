@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.features.characterdetails.ui.character.CharacterDetailsNamePlateComponent
@@ -31,6 +30,7 @@ import com.omarkarimli.morty.core.commonui.DataPoint
 import com.omarkarimli.morty.core.commonui.DataPointComponent
 import com.omarkarimli.morty.core.commonui.LoadingState
 import com.omarkarimli.morty.ui.theme.AppTypography
+import com.omarkarimli.morty.ui.theme.Dimens
 import com.omarkarimli.network.models.domain.Character
 
 sealed interface CharacterDetailsViewState {
@@ -55,8 +55,8 @@ fun CharacterDetailsScreen(
 
     LazyColumn (
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        contentPadding = PaddingValues(Dimens.dp16),
+        verticalArrangement = Arrangement.spacedBy(Dimens.dp16)
     ){
             when(val viewState = state){
                 CharacterDetailsViewState.Loading -> item { LoadingState() }
@@ -71,7 +71,7 @@ fun CharacterDetailsScreen(
                             name = viewState.character.name,
                             status = viewState.character.status
                         )
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(Dimens.dp8))
                     }
                     // Image
                     item {
@@ -86,15 +86,15 @@ fun CharacterDetailsScreen(
                         Text(
                             modifier = Modifier
                                 .border(
-                                    width = 1.dp,
+                                    width = Dimens.dp1,
                                     color = MaterialTheme.colorScheme.primary,
-                                    shape = RoundedCornerShape(12.dp)
+                                    shape = RoundedCornerShape(Dimens.dp12)
                                 )
-                                .clip(RoundedCornerShape(12.dp))
+                                .clip(RoundedCornerShape(Dimens.dp12))
                                 .clickable {
                                     onEpisodeClicked(characterId)
                                 }
-                                .padding(vertical = 8.dp)
+                                .padding(vertical = Dimens.dp8)
                                 .fillMaxWidth(),
                             text = stringResource(R.string.action_view_all_episodes),
                             style = AppTypography.labelLarge,
@@ -102,7 +102,7 @@ fun CharacterDetailsScreen(
                             textAlign = TextAlign.Center,
                         )
                     }
-                    item { Spacer(modifier = Modifier.height(64.dp)) }
+                    item { Spacer(modifier = Modifier.height(Dimens.dp64)) }
                 }
             }
         }

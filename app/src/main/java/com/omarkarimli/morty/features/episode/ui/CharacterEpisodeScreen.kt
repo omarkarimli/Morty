@@ -38,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.CharacterImage
 import com.omarkarimli.morty.core.commonui.CharacterNameComponent
@@ -48,6 +47,7 @@ import com.omarkarimli.morty.core.commonui.EpisodeRowComponent
 import com.omarkarimli.morty.core.commonui.IndicatorContainer
 import com.omarkarimli.morty.core.commonui.LoadingState
 import com.omarkarimli.morty.ui.theme.AppTypography
+import com.omarkarimli.morty.ui.theme.Dimens
 import com.omarkarimli.network.KtorClient
 import com.omarkarimli.network.models.domain.Character
 import com.omarkarimli.network.models.domain.Episode
@@ -93,7 +93,7 @@ fun CharacterEpisodeScreen(characterId: Int, ktorClient: KtorClient){
                 text = state.message,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(32.dp),
+                    .padding(Dimens.dp32),
                 textAlign = TextAlign.Center,
                 style = AppTypography.titleLarge
             )
@@ -108,18 +108,18 @@ private fun MainScreen(character: Character, episodes: List<Episode>) {
 
     LazyColumn(
         contentPadding = PaddingValues(
-            start = 16.dp,
-            end = 16.dp,
-            top = 8.dp,
-            bottom = 16.dp
+            start = Dimens.dp16,
+            end = Dimens.dp16,
+            top = Dimens.dp8,
+            bottom = Dimens.dp16
         )
     ) {
         item { CharacterNameComponent(name = character.name) }
-        item { Spacer(modifier = Modifier.height(8.dp)) }
+        item { Spacer(modifier = Modifier.height(Dimens.dp8)) }
         item { EpisodeBySeason(episodeBySeasonMap) }
-        item { Spacer(modifier = Modifier.height(24.dp)) }
+        item { Spacer(modifier = Modifier.height(Dimens.dp24)) }
         item { CharacterImage(imageUrl = character.imageUrl) }
-        item { Spacer(modifier = Modifier.height(16.dp)) }
+        item { Spacer(modifier = Modifier.height(Dimens.dp16)) }
 
         episodeBySeasonMap.forEach { mapEntry ->
             val seasonNumber = mapEntry.key
@@ -136,7 +136,7 @@ private fun MainScreen(character: Character, episodes: List<Episode>) {
                     HorizontalDivider(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 18.dp)
+                            .padding(start = Dimens.dp18)
                     )
                 }
             }
@@ -169,9 +169,9 @@ private fun EpisodeBySeason(episodeBySeasonMap: Map<Int, List<Episode>>) {
                         VerticalDivider(
                             modifier = Modifier
                                 .fillMaxHeight()
-                                .padding(horizontal = 16.dp),
+                                .padding(horizontal = Dimens.dp16),
                             color = MaterialTheme.colorScheme.onSurface,
-                            thickness = 1.dp
+                            thickness = Dimens.dp1
                         )
                     }
                 }
@@ -196,12 +196,12 @@ private fun SeasonHeader(
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface)
             .clickable { onToggle() }
-            .padding(vertical = 8.dp)
+            .padding(vertical = Dimens.dp8)
             .height(IntrinsicSize.Min),
         verticalAlignment = Alignment.CenterVertically
     ) {
         IndicatorContainer()
-        Spacer(modifier = Modifier.width(12.dp))
+        Spacer(modifier = Modifier.width(Dimens.dp12))
         Text(
             modifier = Modifier.weight(1f),
             text = stringResource(R.string.label_season, seasonNumber),

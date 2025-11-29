@@ -14,9 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.ui.theme.AppTypography
+import com.omarkarimli.morty.ui.theme.Dimens
 
 @Composable
 fun MyTopBar(
@@ -44,7 +44,7 @@ fun MyTopBar(
                 IconButton(
                     onClick = onBackClick,
                     modifier = Modifier
-                        .size(48.dp)
+                        .size(Dimens.dp48)
                         .semantics {
                             contentDescription = backButtonDescription
                         }
@@ -53,7 +53,7 @@ fun MyTopBar(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(Dimens.dp24)
                     )
                 }
             }

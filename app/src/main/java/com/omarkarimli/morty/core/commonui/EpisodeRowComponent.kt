@@ -12,9 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.ui.theme.AppTypography
+import com.omarkarimli.morty.ui.theme.Dimens
 import com.omarkarimli.network.models.domain.Episode
 
 @Composable
@@ -22,7 +22,10 @@ fun EpisodeRowComponent(episode: Episode) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp),
+            .padding(
+                top = Dimens.dp16,
+                bottom = Dimens.dp8
+            ),
         verticalAlignment = Alignment.Top,
     ) {
         Text(
@@ -31,7 +34,7 @@ fun EpisodeRowComponent(episode: Episode) {
                     + episode.episodeNumber.toString(),
             style = AppTypography.titleSmall
         )
-        Spacer(modifier = Modifier.width(64.dp))
+        Spacer(modifier = Modifier.width(Dimens.dp64))
         Column {
             Text(
                 modifier = Modifier.fillMaxWidth(),

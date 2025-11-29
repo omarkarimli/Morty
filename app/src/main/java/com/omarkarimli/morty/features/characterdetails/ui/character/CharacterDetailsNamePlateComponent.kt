@@ -8,9 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.CharacterNameComponent
+import com.omarkarimli.morty.ui.theme.Dimens
 import com.omarkarimli.network.models.domain.CharacterStatus
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -19,7 +19,7 @@ fun CharacterDetailsNamePlateComponent(name: String, status: CharacterStatus) {
     FlowRow(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(Dimens.dp8)
     ) {
         CharacterNameComponent(name = name)
         CharacterStatusComponent(characterStatus = status)
