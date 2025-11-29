@@ -20,7 +20,9 @@ import com.omarkarimli.network.models.domain.Episode
 @Composable
 fun EpisodeRowComponent(episode: Episode) {
     Row(
-        modifier = Modifier.padding(vertical = 8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp),
         verticalAlignment = Alignment.Top,
     ) {
         Text(

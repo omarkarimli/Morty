@@ -8,7 +8,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -117,28 +116,7 @@ private fun MainScreen(character: Character, episodes: List<Episode>) {
     ) {
         item { CharacterNameComponent(name = character.name) }
         item { Spacer(modifier = Modifier.height(8.dp)) }
-        item {
-            LazyRow {
-                episodeBySeasonMap.forEach { mapEntry ->
-                    item {
-                        Row(modifier = Modifier.height(IntrinsicSize.Min)) {
-                            val title = stringResource(R.string.label_season, mapEntry.key)
-                            val description = stringResource(R.string.label_episode_count, mapEntry.value.size)
-                            DataPointComponent(dataPoint = DataPoint(title, description))
-                            if (mapEntry.key != episodeBySeasonMap.keys.last()) {
-                                VerticalDivider(
-                                    modifier = Modifier
-                                        .fillMaxHeight()
-                                        .padding(horizontal = 16.dp),
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    thickness = 1.dp
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        item { EpisodeBySeason(episodeBySeasonMap) }
         item { Spacer(modifier = Modifier.height(24.dp)) }
         item { CharacterImage(imageUrl = character.imageUrl) }
         item { Spacer(modifier = Modifier.height(16.dp)) }
@@ -162,7 +140,6 @@ private fun MainScreen(character: Character, episodes: List<Episode>) {
                     )
                 }
             }
-            item { Spacer(modifier = Modifier.height(16.dp)) }
 
             mapEntry.value.forEach { episode ->
                 item(key = episode.id) {
@@ -172,7 +149,30 @@ private fun MainScreen(character: Character, episodes: List<Episode>) {
                         exit = shrinkVertically() + fadeOut()
                     ) {
                         EpisodeRowComponent(episode = episode)
-                        Spacer(modifier = Modifier.height(16.dp))
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun EpisodeBySeason(episodeBySeasonMap: Map<Int, List<Episode>>) {
+    LazyRow {
+        episodeBySeasonMap.forEach { mapEntry ->
+            item {
+                Row(modifier = Modifier.height(IntrinsicSize.Min)) {
+                    val title = stringResource(R.string.label_season, mapEntry.key)
+                    val description = stringResource(R.string.label_episode_count, mapEntry.value.size)
+                    DataPointComponent(dataPoint = DataPoint(title, description))
+                    if (mapEntry.key != episodeBySeasonMap.keys.last()) {
+                        VerticalDivider(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .padding(horizontal = 16.dp),
+                            color = MaterialTheme.colorScheme.onSurface,
+                            thickness = 1.dp
+                        )
                     }
                 }
             }
@@ -202,14 +202,11 @@ private fun SeasonHeader(
     ) {
         IndicatorContainer()
         Spacer(modifier = Modifier.width(12.dp))
-        Column(
-            modifier = Modifier.weight(1f)
-        ) {
-            Text(
-                text = stringResource(R.string.label_season, seasonNumber),
-                style = AppTypography.titleLarge
-            )
-        }
+        Text(
+            modifier = Modifier.weight(1f),
+            text = stringResource(R.string.label_season, seasonNumber),
+            style = AppTypography.titleLarge
+        )
         IconButton(onClick = onToggle) {
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
