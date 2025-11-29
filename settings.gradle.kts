@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Morty"
 include(":app")
 include(":network")
+include(":dynamicfeature")

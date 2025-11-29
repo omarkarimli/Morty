@@ -11,7 +11,7 @@
     <string name="label_season">Season %1$s</string>
     <string name="label_unique_characters">%1$d unique characters</string>
     <string name="label_episode_count">%1$d ep</string>
-    
+
     <!-- Status and state labels -->
     <string name="label_status">Status: %1$s</string>
 
@@ -19,5 +19,7 @@
     <string name="preview_character_name_rick">Rick Sanchez</string>
     <string name="preview_data_point_name_title">Name</string>
     <string name="preview_data_point_episode_title">Episode</string>
+    <string name="title_dynamicfeature">Dynamic Feature</string>
+    <string name="title_activity_dynamic_feature">DynamicFeatureActivity</string>
 
 </resources>

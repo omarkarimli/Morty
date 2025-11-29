@@ -49,6 +49,7 @@ android {
         compose = true
         buildConfig = true
     }
+    dynamicFeatures += setOf(":dynamicfeature")
 }
 
 dependencies {
