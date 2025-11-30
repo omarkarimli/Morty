@@ -71,6 +71,7 @@ fun DownloadScreen(
                         status = "Installed"
                         isDownloading = false
                         isInstalled = true
+                        progress = 1f
                     }
                     SplitInstallSessionStatus.FAILED -> {
                         status = "Failed"
@@ -94,6 +95,7 @@ fun DownloadScreen(
         if (splitInstallManager.installedModules.contains("dynamicfeature")) {
             status = "Installed"
             isInstalled = true
+            progress = 1f
         } else {
             // Start download immediately when screen opens
             val request = SplitInstallRequest.newBuilder()
@@ -127,18 +129,23 @@ fun DownloadScreen(
         }
     ) { innerPadding ->
         val text =
-            if (isDownloading) "Cancel"
+            if (isInstalled) "Open"
+            else if (isDownloading) "Cancel"
             else "Confirm"
+            
         val icon =
             if (isInstalled) Icons.Rounded.Check
             else Icons.Rounded.Pause
+            
         val onClick = {
-            if (isDownloading) {
-                splitInstallManager.cancelInstall(sessionId)
-            } else {
+            if (isInstalled) {
                 val intent = Intent().setClassName(context.packageName, Constants.DYNAMIC_FEATURE_CLASS_NAME)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(intent)
+            } else if (isDownloading) {
+                splitInstallManager.cancelInstall(sessionId)
+            } else {
+                // Retry logic or initial start could be here if not auto-started
             }
         }
 
