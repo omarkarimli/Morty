@@ -91,7 +91,7 @@ fun MyBottomBar(
                 ) {
                     Icon(
                         modifier = Modifier.size(Dimens.dp24),
-                        imageVector = destination.icon,
+                        imageVector = if (isActive) destination.selectedIcon else destination.unselectedIcon,
                         contentDescription = destination.title,
                     )
                 }
