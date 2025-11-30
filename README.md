@@ -1,4 +1,5 @@
 # Morty
+<img width="1080" height="699" alt="intro" src="https://github.com/user-attachments/assets/334d0c63-a62e-4b24-b32c-cb93aa8b218f" />
 
 Morty is a modern Android application showcasing the Rick and Morty API. It demonstrates modern Android development practices, utilizing Jetpack Compose, Koin, Ktor, and Dynamic Feature Modules.
 
@@ -45,3 +46,12 @@ The app follows the recommended modern Android architecture guidelines:
 *   **MVI (Model-View-Intent)**: The app implements the MVI pattern where Intents (Events) are processed to produce a new immutable State, ensuring a Unidirectional Data Flow (UDF).
 *   **Modular Architecture**: The codebase is split into feature and data modules (`:app`, `:network`, `:dynamicfeature`) to ensure separation of concerns, scalability, and faster build times.
 *   **Dependency Injection**: Koin is used to inject repositories and network clients into ViewModels.
+
+## 🛠 Screenshots
+
+<img width="1080" height="2214" alt="1" src="https://github.com/user-attachments/assets/82c36624-c0c5-4089-98af-a80004eee4b5" />
+<img width="1080" height="2214" alt="2" src="https://github.com/user-attachments/assets/ad82ac42-a35a-4e11-8d2c-81ee94cb2a52" />
+<img width="1080" height="2214" alt="3" src="https://github.com/user-attachments/assets/7f3df9fd-81f0-46cc-b12e-422579735c56" />
+<img width="1080" height="2214" alt="4" src="https://github.com/user-attachments/assets/c27235ba-991e-4c43-b367-77e9b76014c7" />
+<img width="1080" height="2214" alt="5" src="https://github.com/user-attachments/assets/77330d0d-d8a8-44ae-84ba-adaa58288d0d" />
+<img width="1080" height="2214" alt="6" src="https://github.com/user-attachments/assets/76834bb5-e9db-48d7-a4b0-20a30707a205" />
