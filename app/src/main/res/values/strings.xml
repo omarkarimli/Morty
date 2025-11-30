@@ -61,11 +61,8 @@
     <string name="feature_new_features_info">
     We\'re excited to bring you our biggest update yet, focusing on performance &amp; user experience!
     \n\nPerformance &amp; Stability:
-    \n- We\'ve reduced app launch time by over 30%%, making the application feel much snappier.
+    \n- We\'ve reduced app launch time by over 30%, making the application feel much snappier.
     \n- Significant improvements to memory management resulting in fewer crashes, especially on older devices.
-    \n\nQuality of Life Improvements:
-    \n- Introducing an advanced search function that supports filtering by date, category, and file type.
-    \n- The integrated tutorial system has been updated with new tips and tricks for maximizing your productivity.
     </string>
     <string name="action_completed">Completed</string>
 </resources>

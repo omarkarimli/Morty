@@ -64,7 +64,7 @@ fun DynamicFeatureScreen(activity: Activity) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(Dimens.dp16)
+                .padding(horizontal = Dimens.dp16)
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(Dimens.dp16)
