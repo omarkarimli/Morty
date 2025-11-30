@@ -47,7 +47,7 @@ The app follows the recommended modern Android architecture guidelines:
 *   **Modular Architecture**: The codebase is split into feature and data modules (`:app`, `:network`, `:dynamicfeature`) to ensure separation of concerns, scalability, and faster build times.
 *   **Dependency Injection**: Koin is used to inject repositories and network clients into ViewModels.
 
-## 🛠 Screenshots
+## 📷 Screens
 
 <img src="https://github.com/user-attachments/assets/82c36624-c0c5-4089-98af-a80004eee4b5" alt="1" height="256" style="margin: 24px;">
 <img src="https://github.com/user-attachments/assets/ad82ac42-a35a-4e11-8d2c-81ee94cb2a52" alt="2" height="256" style="margin: 24px;">
