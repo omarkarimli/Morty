@@ -49,9 +49,9 @@ The app follows the recommended modern Android architecture guidelines:
 
 ## 🛠 Screenshots
 
-<img width="1080" height="2214" alt="1" src="https://github.com/user-attachments/assets/82c36624-c0c5-4089-98af-a80004eee4b5" />
-<img width="1080" height="2214" alt="2" src="https://github.com/user-attachments/assets/ad82ac42-a35a-4e11-8d2c-81ee94cb2a52" />
-<img width="1080" height="2214" alt="3" src="https://github.com/user-attachments/assets/7f3df9fd-81f0-46cc-b12e-422579735c56" />
-<img width="1080" height="2214" alt="4" src="https://github.com/user-attachments/assets/c27235ba-991e-4c43-b367-77e9b76014c7" />
-<img width="1080" height="2214" alt="5" src="https://github.com/user-attachments/assets/77330d0d-d8a8-44ae-84ba-adaa58288d0d" />
-<img width="1080" height="2214" alt="6" src="https://github.com/user-attachments/assets/76834bb5-e9db-48d7-a4b0-20a30707a205" />
+<img src="https://github.com/user-attachments/assets/82c36624-c0c5-4089-98af-a80004eee4b5" alt="1" height="256" style="margin: 24px;">
+<img src="https://github.com/user-attachments/assets/ad82ac42-a35a-4e11-8d2c-81ee94cb2a52" alt="2" height="256" style="margin: 24px;">
+<img src="https://github.com/user-attachments/assets/7f3df9fd-81f0-46cc-b12e-422579735c56" alt="3" height="256" style="margin: 24px;">
+<img src="https://github.com/user-attachments/assets/c27235ba-991e-4c43-b367-77e9b76014c7" alt="4" height="256" style="margin: 24px;">
+<img src="https://github.com/user-attachments/assets/77330d0d-d8a8-44ae-84ba-adaa58288d0d" alt="5" height="256" style="margin: 24px;">
+<img src="https://github.com/user-attachments/assets/76834bb5-e9db-48d7-a4b0-20a30707a205" alt="6" height="256" style="margin: 24px;">
