@@ -6,6 +6,7 @@
     <string name="nav_title_home">All Characters</string>
     <string name="nav_title_episodes">All Episodes</string>
     <string name="nav_title_character_details">Character Details</string>
+    <string name="nav_title_dynamic">Dynamic Feature</string>
 
     <!-- Navigation actions -->
 

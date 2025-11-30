@@ -46,6 +46,7 @@ import com.omarkarimli.morty.core.commonui.DataPointComponent
 import com.omarkarimli.morty.core.commonui.EpisodeRowComponent
 import com.omarkarimli.morty.core.commonui.IndicatorContainer
 import com.omarkarimli.morty.core.commonui.LoadingState
+import com.omarkarimli.morty.core.commonui.UiText
 import com.omarkarimli.morty.ui.theme.AppTypography
 import com.omarkarimli.morty.ui.theme.Dimens
 import com.omarkarimli.network.KtorClient
@@ -162,8 +163,8 @@ private fun EpisodeBySeason(episodeBySeasonMap: Map<Int, List<Episode>>) {
         episodeBySeasonMap.forEach { mapEntry ->
             item {
                 Row(modifier = Modifier.height(IntrinsicSize.Min)) {
-                    val title = stringResource(R.string.label_season, mapEntry.key)
-                    val description = stringResource(R.string.label_episode_count, mapEntry.value.size)
+                    val title = UiText.StringResource(R.string.label_season, mapEntry.key)
+                    val description = UiText.StringResource(R.string.label_episode_count, mapEntry.value.size)
                     DataPointComponent(dataPoint = DataPoint(title, description))
                     if (mapEntry.key != episodeBySeasonMap.keys.last()) {
                         VerticalDivider(
@@ -210,7 +211,7 @@ private fun SeasonHeader(
         IconButton(onClick = onToggle) {
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
-                contentDescription = if (isExpanded) "Collapse" else "Expand",
+                contentDescription = if (isExpanded) stringResource(R.string.action_collapse) else stringResource(R.string.action_expand),
                 modifier = Modifier.rotate(rotation)
             )
         }

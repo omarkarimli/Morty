@@ -21,13 +21,14 @@ import com.omarkarimli.morty.core.commonui.CharacterImage
 import com.omarkarimli.morty.core.commonui.DataPoint
 import com.omarkarimli.morty.core.commonui.DataPointComponent
 import com.omarkarimli.morty.core.commonui.LoadingState
+import com.omarkarimli.morty.core.commonui.UiText
 import com.omarkarimli.morty.core.commonui.WideButton
 import com.omarkarimli.morty.ui.theme.Dimens
 import com.omarkarimli.network.models.domain.Character
 
 sealed interface CharacterDetailsViewState {
     object Loading : CharacterDetailsViewState
-    data class Error(val message: String) : CharacterDetailsViewState
+    data class Error(val message: UiText) : CharacterDetailsViewState
     data class Success(
         val character: Character,
         val characterDataPoints: List<DataPoint>
@@ -54,7 +55,7 @@ fun CharacterDetailsScreen(
                 CharacterDetailsViewState.Loading -> item { LoadingState() }
                 is CharacterDetailsViewState.Error -> {
                     item {
-                        Text(text = viewState.message)
+                        Text(text = viewState.message.asString())
                     }
                 }
                 is CharacterDetailsViewState.Success -> {

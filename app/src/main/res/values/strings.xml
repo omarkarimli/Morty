@@ -5,11 +5,34 @@
 
     <!-- Action buttons and labels -->
     <string name="action_view_all_episodes">View all episodes</string>
+    <string name="action_collapse">Collapse</string>
+    <string name="action_expand">Expand</string>
 
     <!-- Content labels -->
-    <string name="label_season">Season %1$s</string>
+    <string name="label_season">Season %1$d</string>
     <string name="label_unique_characters">%1$d unique characters</string>
     <string name="label_episode_count">%1$d ep</string>
+
+    <!-- Data Points -->
+    <string name="data_point_last_known_location">Last known location</string>
+    <string name="data_point_species">Species</string>
+    <string name="data_point_gender">Gender</string>
+    <string name="data_point_type">Type</string>
+    <string name="data_point_origin">Origin</string>
+    <string name="data_point_episode_count">Episode count</string>
+    <string name="data_point_name">Name</string>
+    <string name="data_point_episode">Episode</string>
+
+    <!-- Status -->
+    <string name="status_alive">Alive</string>
+    <string name="status_dead">Dead</string>
+    <string name="status_unknown">Unknown</string>
+
+    <!-- Gender -->
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_genderless">No gender</string>
+    <string name="gender_unknown">Not specified</string>
 
     <!-- Preview and test strings -->
     <string name="preview_character_name_rick">Rick Sanchez</string>

@@ -23,9 +23,7 @@ class AllEpisodesViewModel(
                 _uiState.update {
                     AllEpisodesUiState.Success(
                         data = episodeList.groupBy {
-                            it.seasonNumber.toString()
-                        }.mapKeys {
-                            Constants.SEASON_FORMAT.format(it.key)
+                            it.seasonNumber
                         }
                     )
                 }

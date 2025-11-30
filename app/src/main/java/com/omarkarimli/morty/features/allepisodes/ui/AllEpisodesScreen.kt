@@ -50,7 +50,7 @@ import com.omarkarimli.network.models.domain.Episode
 sealed interface AllEpisodesUiState {
     object Error : AllEpisodesUiState
     object Loading : AllEpisodesUiState
-    data class Success(val data: Map<String, List<Episode>>) : AllEpisodesUiState
+    data class Success(val data: Map<Int, List<Episode>>) : AllEpisodesUiState
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -74,7 +74,7 @@ fun AllEpisodesScreen(
         }
 
         is AllEpisodesUiState.Success -> {
-            var expandedSection by remember { mutableStateOf<String?>(null) }
+            var expandedSection by remember { mutableStateOf<Int?>(null) }
 
             LaunchedEffect(state.data) {
                 if (expandedSection == null) {
@@ -92,9 +92,9 @@ fun AllEpisodesScreen(
             ) {
                 state.data.forEach { mapEntry ->
                     val isExpanded = mapEntry.key == expandedSection
-                    stickyHeader(key = mapEntry.key) {
+                    stickyHeader(key = "season_${mapEntry.key}") {
                         Header(
-                            seasonName = mapEntry.key,
+                            seasonName = stringResource(R.string.label_season, mapEntry.key),
                             uniqueCharacterCount = mapEntry.value.flatMap {
                                 it.characterIdsInEpisode
                             }.toSet().size,
@@ -113,7 +113,7 @@ fun AllEpisodesScreen(
                     }
 
                     mapEntry.value.forEach { episode ->
-                        item(key = episode.id) {
+                        item(key = "episode_${episode.id}") {
                             AnimatedVisibility(
                                 visible = isExpanded,
                                 enter = expandVertically() + fadeIn(),
@@ -167,7 +167,7 @@ private fun Header(
         IconButton(onClick = onToggle) {
             Icon(
                 imageVector = Icons.Default.KeyboardArrowDown,
-                contentDescription = if (isExpanded) "Collapse" else "Expand",
+                contentDescription = if (isExpanded) stringResource(R.string.action_collapse) else stringResource(R.string.action_expand),
                 modifier = Modifier.rotate(rotation)
             )
         }

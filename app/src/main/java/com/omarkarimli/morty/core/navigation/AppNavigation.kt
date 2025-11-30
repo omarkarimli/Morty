@@ -63,7 +63,7 @@ private fun getNavigationState(
         )
         currentRoute == NavDestination.Dynamic.route -> NavigationState(
             currentRoute = currentRoute,
-            title = "Dynamic Feature"
+            title = stringResource(R.string.nav_title_dynamic)
         )
         currentRoute.contains("character_details") -> NavigationState(
             currentRoute = currentRoute,

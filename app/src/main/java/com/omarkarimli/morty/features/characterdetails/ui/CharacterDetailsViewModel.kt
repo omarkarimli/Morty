@@ -2,8 +2,9 @@ package com.omarkarimli.morty.features.characterdetails.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.DataPoint
-import com.omarkarimli.morty.core.constants.Constants
+import com.omarkarimli.morty.core.commonui.UiText
 import com.omarkarimli.morty.features.characterdetails.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,14 +24,14 @@ class CharacterDetailsViewModel(
         _internalStorageFlow.update { return@update CharacterDetailsViewState.Loading }
         characterRepository.fetchCharacter(characterId).onSuccess { character ->
             val dataPoints = buildList {
-                add(DataPoint(Constants.DATA_POINT_LAST_KNOWN_LOCATION, character.location.name))
-                add(DataPoint(Constants.DATA_POINT_SPECIES, character.species))
-                add(DataPoint(Constants.DATA_POINT_GENDER, character.gender.displayName))
+                add(DataPoint(UiText.StringResource(R.string.data_point_last_known_location), UiText.DynamicString(character.location.name)))
+                add(DataPoint(UiText.StringResource(R.string.data_point_species), UiText.DynamicString(character.species)))
+                add(DataPoint(UiText.StringResource(R.string.data_point_gender), UiText.DynamicString(character.gender.displayName)))
                 character.type.takeIf { it.isNotEmpty() }?.let { type ->
-                    add(DataPoint(Constants.DATA_POINT_TYPE, type))
+                    add(DataPoint(UiText.StringResource(R.string.data_point_type), UiText.DynamicString(type)))
                 }
-                add(DataPoint(Constants.DATA_POINT_ORIGIN, character.origin.name))
-                add(DataPoint(Constants.DATA_POINT_EPISODE_COUNT, character.episodeIds.size.toString()))
+                add(DataPoint(UiText.StringResource(R.string.data_point_origin), UiText.DynamicString(character.origin.name)))
+                add(DataPoint(UiText.StringResource(R.string.data_point_episode_count), UiText.DynamicString(character.episodeIds.size.toString())))
             }
             _internalStorageFlow.update {
                 return@update CharacterDetailsViewState.Success(
@@ -41,7 +42,7 @@ class CharacterDetailsViewModel(
         }.onFailure { exception ->
             _internalStorageFlow.update {
                 return@update CharacterDetailsViewState.Error(
-                    message = exception.message ?: Constants.UNKNOWN_ERROR
+                    message = UiText.DynamicString(exception.message ?: "Unknown error")
                 )
             }
         }
