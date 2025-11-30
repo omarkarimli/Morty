@@ -4,8 +4,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -149,14 +147,14 @@ private fun MainScreen(
     // Create navigation state with title mapping
     val navigationState = getNavigationState(currentRoute)
 
-    var isBottomBarVisible by remember { mutableStateOf(true) }
+    var areBarsVisible by remember { mutableStateOf(true) }
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-                if (available.y < -5f) {
-                    isBottomBarVisible = false
-                } else if (available.y > 5f) {
-                    isBottomBarVisible = true
+                if (available.y < -10f) {
+                    areBarsVisible = false
+                } else if (available.y > 10f) {
+                    areBarsVisible = true
                 }
                 return Offset.Zero
             }
@@ -166,23 +164,29 @@ private fun MainScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(nestedScrollConnection),
         topBar = {
-            MyTopBar(
-                title = navigationState.title,
-                showBackButton = navigationState.showBackButton,
-                onBackClick = if (navigationState.showBackButton) {
-                    {
-                        if (pagerState.currentPage == 0) {
-                            homeNavController.navigateUp()
+            AnimatedVisibility(
+                visible = areBarsVisible,
+                enter = expandVertically(expandFrom = Alignment.Bottom),
+                exit = shrinkVertically(shrinkTowards = Alignment.Bottom)
+            ) {
+                MyTopBar(
+                    title = navigationState.title,
+                    showBackButton = navigationState.showBackButton,
+                    onBackClick = if (navigationState.showBackButton) {
+                        {
+                            if (pagerState.currentPage == 0) {
+                                homeNavController.navigateUp()
+                            }
                         }
-                    }
-                } else null,
-            )
+                    } else null,
+                )
+            }
         },
         bottomBar = {
             AnimatedVisibility(
-                visible = isBottomBarVisible,
-                enter = slideInVertically { it } + expandVertically(),
-                exit = slideOutVertically { it } + shrinkVertically()
+                visible = areBarsVisible,
+                enter = expandVertically(expandFrom = Alignment.Top),
+                exit = shrinkVertically(shrinkTowards = Alignment.Top)
             ) {
                 MyBottomBar(
                     currentRoute = currentRoute,

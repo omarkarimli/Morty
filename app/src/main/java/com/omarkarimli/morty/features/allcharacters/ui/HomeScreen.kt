@@ -50,7 +50,10 @@ fun HomeScreen(
         is HomeScreenViewState.GridDisplay ->{
             LazyVerticalGrid(
                 state = scrollState,
-                contentPadding = PaddingValues(all = Dimens.dp16),
+                contentPadding = PaddingValues(
+                    horizontal = Dimens.dp16,
+                    vertical = Dimens.dp8
+                ),
                 verticalArrangement = Arrangement.spacedBy(Dimens.dp8),
                 horizontalArrangement = Arrangement.spacedBy(Dimens.dp8),
                 columns = GridCells.Fixed(2),
