@@ -6,14 +6,12 @@ plugins {
 
 android {
     namespace = "com.omarkarimli.morty"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.omarkarimli.morty"
-        minSdk = 26
-        targetSdk = 36
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.compileSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -63,10 +61,6 @@ dependencies {
     implementation(libs.bundles.compose)
     implementation(libs.bundles.material)
     implementation(libs.androidx.compose.ui.text.google.fonts)
-//    implementation(libs.androidx.ui)
-//    implementation(libs.androidx.ui.graphics)
-//    implementation(libs.androidx.ui.tooling.preview)
-//    implementation(libs.androidx.material3)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
