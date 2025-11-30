@@ -1,6 +1,6 @@
 # Morty
 
-Morty is a modern Android application showcasing the Rick and Morty API. It demonstrates modern Android development practices, utilizing Jetpack Compose, Hilt, Ktor, and Dynamic Feature Modules.
+Morty is a modern Android application showcasing the Rick and Morty API. It demonstrates modern Android development practices, utilizing Jetpack Compose, Koin, Ktor, and Dynamic Feature Modules.
 
 ## 🏗 Tech Stack & Libraries
 
@@ -13,7 +13,7 @@ The project leverages the latest Android technologies:
     *   **Navigation Compose**: For handling navigation between screens.
     *   **Coil**: For asynchronous image loading.
     *   **Compose Shimmer**: For loading state animations.
-*   **Dependency Injection**: [Hilt](https://dagger.dev/hilt/)
+*   **Dependency Injection**: [Koin](https://insert-koin.io/)
 *   **Networking**: [Ktor Client](https://ktor.io/docs/client-create-new-application.html)
     *   Engine: OkHttp
     *   Serialization: Kotlinx Serialization
@@ -44,4 +44,4 @@ The project is organized into the following modules:
 The app follows the recommended modern Android architecture guidelines:
 *   **MVI (Model-View-Intent)**: The app implements the MVI pattern where Intents (Events) are processed to produce a new immutable State, ensuring a Unidirectional Data Flow (UDF).
 *   **Modular Architecture**: The codebase is split into feature and data modules (`:app`, `:network`, `:dynamicfeature`) to ensure separation of concerns, scalability, and faster build times.
-*   **Dependency Injection**: Hilt is used to inject repositories and network clients into ViewModels.
+*   **Dependency Injection**: Koin is used to inject repositories and network clients into ViewModels.
