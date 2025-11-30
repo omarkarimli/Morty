@@ -2,9 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
-    alias(libs.plugins.dagger.hilt)
-    kotlin("kapt")
 }
 
 android {
@@ -84,10 +81,9 @@ dependencies {
     // Image loading
     implementation(libs.coil.compose)
 
-    // Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-    implementation(libs.hilt.navigation.compose)
+    // Koin
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
 
     // Shimmer
     implementation(libs.compose.shimmer)

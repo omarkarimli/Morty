@@ -14,7 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.koin.androidx.compose.koinViewModel
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.features.characterdetails.ui.character.CharacterDetailsNamePlateComponent
 import com.omarkarimli.morty.core.commonui.CharacterImage
@@ -36,7 +36,7 @@ sealed interface CharacterDetailsViewState {
 @Composable
 fun CharacterDetailsScreen(
     characterId: Int,
-    viewModel: CharacterDetailsViewModel = hiltViewModel(),
+    viewModel: CharacterDetailsViewModel = koinViewModel(),
     onEpisodeClicked: (Int) -> Unit
 ){
     LaunchedEffect(key1 = Unit, block = {

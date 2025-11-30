@@ -1,7 +1,20 @@
 package com.omarkarimli.morty.core.di
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
-@HiltAndroidApp
-class MyApplication: Application()
+class MyApplication: Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin {
+            androidContext(this@MyApplication)
+            modules(
+                networkModule,
+                repositoryModule,
+                viewModelModule
+            )
+        }
+    }
+}

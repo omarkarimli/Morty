@@ -5,15 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.omarkarimli.morty.core.commonui.DataPoint
 import com.omarkarimli.morty.core.constants.Constants
 import com.omarkarimli.morty.features.characterdetails.domain.repository.CharacterRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class CharacterDetailsViewModel @Inject constructor(
+class CharacterDetailsViewModel(
     private val characterRepository: CharacterRepository
 ): ViewModel(){
 

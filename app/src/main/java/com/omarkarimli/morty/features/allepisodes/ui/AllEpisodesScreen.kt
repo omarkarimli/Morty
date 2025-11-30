@@ -38,7 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.koin.androidx.compose.koinViewModel
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.EpisodeRowComponent
 import com.omarkarimli.morty.core.commonui.IndicatorContainer
@@ -56,7 +56,7 @@ sealed interface AllEpisodesUiState {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AllEpisodesScreen(
-    episodesViewModel: AllEpisodesViewModel = hiltViewModel()
+    episodesViewModel: AllEpisodesViewModel = koinViewModel()
 ) {
     val uiState by episodesViewModel.uiState.collectAsState()
 

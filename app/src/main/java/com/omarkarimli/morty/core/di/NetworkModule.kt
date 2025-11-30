@@ -1,19 +1,8 @@
 package com.omarkarimli.morty.core.di
 
 import com.omarkarimli.network.KtorClient
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-class NetworkModule {
-
-    @Provides
-    @Singleton
-    fun providesKtorClient(): KtorClient {
-        return KtorClient()
-    }
+val networkModule = module {
+    single { KtorClient() }
 }

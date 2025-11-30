@@ -4,16 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omarkarimli.morty.features.characterdetails.domain.repository.CharacterRepository
 import com.omarkarimli.network.models.domain.CharacterPage
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class HomeScreenViewModel @Inject constructor(
+class HomeScreenViewModel(
     private val characterRepository: CharacterRepository
 ) : ViewModel() {
 
@@ -49,7 +46,4 @@ class HomeScreenViewModel @Inject constructor(
             // todo
         }
     }
-
-
-
 }

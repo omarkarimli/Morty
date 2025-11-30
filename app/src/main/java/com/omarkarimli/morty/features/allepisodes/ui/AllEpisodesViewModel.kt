@@ -4,16 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omarkarimli.morty.core.constants.Constants
 import com.omarkarimli.morty.features.allepisodes.domain.repository.EpisodesRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class AllEpisodesViewModel @Inject constructor
-    (private val repository: EpisodesRepository): ViewModel() {
+class AllEpisodesViewModel(
+    private val repository: EpisodesRepository
+): ViewModel() {
 
     private val _uiState = MutableStateFlow<AllEpisodesUiState>(AllEpisodesUiState.Loading)
     val uiState = _uiState.asStateFlow()

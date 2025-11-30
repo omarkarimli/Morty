@@ -2,7 +2,7 @@ package com.omarkarimli.morty.features.allcharacters.ui
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.hilt.navigation.compose.hiltViewModel
+import org.koin.androidx.compose.koinViewModel
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -21,7 +21,7 @@ import com.omarkarimli.morty.ui.theme.Dimens
 @Composable
 fun HomeScreen(
     onCharacterSelected: (Int) -> Unit,
-    viewModel: HomeScreenViewModel = hiltViewModel()
+    viewModel: HomeScreenViewModel = koinViewModel()
 ){
     val viewState by viewModel.viewState.collectAsState()
 

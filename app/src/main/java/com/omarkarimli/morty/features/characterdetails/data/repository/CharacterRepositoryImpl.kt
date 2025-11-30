@@ -4,10 +4,10 @@ import com.omarkarimli.morty.features.characterdetails.domain.repository.Charact
 import com.omarkarimli.network.KtorClient
 import com.omarkarimli.network.models.domain.Character
 import com.omarkarimli.network.models.domain.CharacterPage
-import javax.inject.Inject
 
-class CharacterRepositoryImpl @Inject constructor
-    (private val ktorClient: KtorClient) : CharacterRepository {
+class CharacterRepositoryImpl(
+    private val ktorClient: KtorClient
+) : CharacterRepository {
 
     override suspend fun fetchCharacterPage(
         page: Int,
@@ -23,6 +23,4 @@ class CharacterRepositoryImpl @Inject constructor
     override suspend fun fetchAllCharactersByName(searchQuery: String): KtorClient.ApiOperation<List<Character>> {
         return ktorClient.searchAllCharactersByName(searchQuery)
     }
-
-
 }
