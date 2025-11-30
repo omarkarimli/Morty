@@ -2,6 +2,8 @@ package com.omarkarimli.morty.core.navigation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -179,8 +181,8 @@ private fun MainScreen(
         bottomBar = {
             AnimatedVisibility(
                 visible = isBottomBarVisible,
-                enter = slideInVertically { it },
-                exit = slideOutVertically { it }
+                enter = slideInVertically { it } + expandVertically(),
+                exit = slideOutVertically { it } + shrinkVertically()
             ) {
                 MyBottomBar(
                     currentRoute = currentRoute,
