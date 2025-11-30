@@ -67,7 +67,7 @@ private fun getNavigationState(
         )
         else -> NavigationState(
             currentRoute = currentRoute,
-            title = stringResource(R.string.app_title_default)
+            title = stringResource(R.string.app_name)
         )
     }
 }

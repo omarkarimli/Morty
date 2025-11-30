@@ -2,7 +2,6 @@
 <resources>
     <!-- Application metadata -->
     <string name="app_name">Morty</string>
-    <string name="app_title_default">Rick &amp; Morty</string>
 
     <!-- Action buttons and labels -->
     <string name="action_view_all_episodes">View all episodes</string>

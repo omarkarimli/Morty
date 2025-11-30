@@ -1,18 +1,18 @@
 package com.omarkarimli.dynamicfeature
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -36,21 +36,23 @@ class DynamicFeatureActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MortyTheme {
-                DynamicFeatureScreen()
+                DynamicFeatureScreen(activity = this)
             }
         }
     }
 }
 
 @Composable
-fun DynamicFeatureScreen() {
+fun DynamicFeatureScreen(activity: Activity) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             MyTopBar(
                 title = "Dynamic Feature",
                 showBackButton = true,
-                onBackClick = {}
+                onBackClick = {
+                    activity.finish()
+                }
             )
         },
     ) { innerPadding ->
@@ -59,13 +61,25 @@ fun DynamicFeatureScreen() {
                 .fillMaxSize()
                 .padding(innerPadding)
                 .padding(Dimens.dp16),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(Dimens.dp16)
         ) {
-            Text(
-                text = "New Features Here",
-                style = AppTypography.headlineMedium,
-                textAlign = TextAlign.Center
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        color = MaterialTheme.colorScheme.surfaceContainer,
+                        shape = MaterialTheme.shapes.large
+                    )
+                    .padding(vertical = Dimens.dp8),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "New Features Here",
+                    style = AppTypography.headlineSmall.copy(color = MaterialTheme.colorScheme.onSurface),
+                    textAlign = TextAlign.Center
+                )
+            }
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -74,27 +88,10 @@ fun DynamicFeatureScreen() {
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(Dimens.dp16)
-            ) {
-                IconButton(
-                    onClick = { }
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.Done,
-                        contentDescription = null
-                    )
-                }
-                WideButton(
-                    modifier = Modifier.weight(1f),
-                    text = "Completed",
-                    onClick = {},
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
-            }
+            WideButton(
+                text = "Completed",
+                onClick = {}
+            )
         }
     }
 }

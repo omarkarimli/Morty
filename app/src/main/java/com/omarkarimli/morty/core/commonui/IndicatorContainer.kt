@@ -18,6 +18,6 @@ fun IndicatorContainer() {
                 shape = MaterialTheme.shapes.small
             )
             .fillMaxHeight()
-            .width(Dimens.dp6)
+            .width(Dimens.dp8)
     )
 }

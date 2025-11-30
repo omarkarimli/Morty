@@ -37,7 +37,7 @@ private fun LoadingItem() {
     ) {
         Box(
             modifier = Modifier
-                .size(Dimens.dp100)
+                .size(Dimens.dp96)
                 .shimmer()
                 .background(MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.large)
         )
@@ -48,14 +48,14 @@ private fun LoadingItem() {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(Dimens.dp20)
+                    .height(Dimens.dp24)
                     .shimmer()
                     .background(MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium)
             )
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
-                    .height(Dimens.dp20)
+                    .height(Dimens.dp24)
                     .shimmer()
                     .background(MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium)
             )

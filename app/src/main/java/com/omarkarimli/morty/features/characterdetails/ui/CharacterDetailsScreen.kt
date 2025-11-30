@@ -1,27 +1,19 @@
 package com.omarkarimli.morty.features.characterdetails.ui
 
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.features.characterdetails.ui.character.CharacterDetailsNamePlateComponent
@@ -29,7 +21,7 @@ import com.omarkarimli.morty.core.commonui.CharacterImage
 import com.omarkarimli.morty.core.commonui.DataPoint
 import com.omarkarimli.morty.core.commonui.DataPointComponent
 import com.omarkarimli.morty.core.commonui.LoadingState
-import com.omarkarimli.morty.ui.theme.AppTypography
+import com.omarkarimli.morty.core.commonui.WideButton
 import com.omarkarimli.morty.ui.theme.Dimens
 import com.omarkarimli.network.models.domain.Character
 
@@ -83,23 +75,11 @@ fun CharacterDetailsScreen(
                     }
                     // Button
                     item {
-                        Text(
-                            modifier = Modifier
-                                .border(
-                                    width = Dimens.dp1,
-                                    color = MaterialTheme.colorScheme.primary,
-                                    shape = RoundedCornerShape(Dimens.dp12)
-                                )
-                                .clip(RoundedCornerShape(Dimens.dp12))
-                                .clickable {
-                                    onEpisodeClicked(characterId)
-                                }
-                                .padding(vertical = Dimens.dp8)
-                                .fillMaxWidth(),
+                        WideButton(
                             text = stringResource(R.string.action_view_all_episodes),
-                            style = AppTypography.labelLarge,
-                            color = MaterialTheme.colorScheme.primary,
-                            textAlign = TextAlign.Center,
+                            onClick = {
+                                onEpisodeClicked(characterId)
+                            }
                         )
                     }
                     item { Spacer(modifier = Modifier.height(Dimens.dp64)) }

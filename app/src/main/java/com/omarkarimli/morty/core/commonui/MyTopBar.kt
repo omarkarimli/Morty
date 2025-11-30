@@ -20,7 +20,7 @@ import com.omarkarimli.morty.ui.theme.Dimens
 
 @Composable
 fun MyTopBar(
-    title: String = stringResource(R.string.app_title_default),
+    title: String = stringResource(R.string.app_name),
     showBackButton: Boolean = false,
     onBackClick: (() -> Unit)? = null
 ) {

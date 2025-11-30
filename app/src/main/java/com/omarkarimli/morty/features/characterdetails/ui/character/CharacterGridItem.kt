@@ -28,12 +28,12 @@ fun CharacterGridItem(
         Box {
             CharacterImage(imageUrl = character.imageUrl)
             CharacterStatusCircle(
-                modifier = Modifier.padding(start = Dimens.dp6, top = Dimens.dp6),
+                modifier = Modifier.padding(start = Dimens.dp8, top = Dimens.dp8),
                 status = character.status
             )
         }
         Text(
-            modifier = Modifier.padding(vertical = Dimens.dp12),
+            modifier = Modifier.padding(vertical = Dimens.dp16),
             text = character.name,
             style = AppTypography.titleMedium
         )

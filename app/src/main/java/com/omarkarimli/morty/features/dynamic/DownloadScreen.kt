@@ -148,7 +148,7 @@ fun DownloadScreen(
             Icon(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .size(Dimens.dp100),
+                    .size(Dimens.dp96),
                 imageVector = Icons.Rounded.Downloading,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)

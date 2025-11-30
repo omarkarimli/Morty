@@ -136,7 +136,7 @@ private fun MainScreen(character: Character, episodes: List<Episode>) {
                     HorizontalDivider(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = Dimens.dp18)
+                            .padding(start = Dimens.dp16)
                     )
                 }
             }
@@ -171,7 +171,7 @@ private fun EpisodeBySeason(episodeBySeasonMap: Map<Int, List<Episode>>) {
                                 .fillMaxHeight()
                                 .padding(horizontal = Dimens.dp16),
                             color = MaterialTheme.colorScheme.onSurface,
-                            thickness = Dimens.dp1
+                            thickness = Dimens.thickness
                         )
                     }
                 }
@@ -201,7 +201,7 @@ private fun SeasonHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         IndicatorContainer()
-        Spacer(modifier = Modifier.width(Dimens.dp12))
+        Spacer(modifier = Modifier.width(Dimens.dp16))
         Text(
             modifier = Modifier.weight(1f),
             text = stringResource(R.string.label_season, seasonNumber),

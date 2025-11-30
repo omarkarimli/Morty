@@ -107,7 +107,7 @@ fun AllEpisodesScreen(
                             HorizontalDivider(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(start = Dimens.dp18)
+                                    .padding(start = Dimens.dp16)
                             )
                         }
                     }
@@ -151,7 +151,7 @@ private fun Header(
         verticalAlignment = Alignment.CenterVertically
     ) {
         IndicatorContainer()
-        Spacer(modifier = Modifier.width(Dimens.dp12))
+        Spacer(modifier = Modifier.width(Dimens.dp16))
         Column(
             modifier = Modifier.weight(1f)
         ) {
