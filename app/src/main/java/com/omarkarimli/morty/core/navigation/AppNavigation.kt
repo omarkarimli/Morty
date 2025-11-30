@@ -1,6 +1,9 @@
 package com.omarkarimli.morty.core.navigation
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,9 +13,16 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -137,7 +147,22 @@ private fun MainScreen(
     // Create navigation state with title mapping
     val navigationState = getNavigationState(currentRoute)
 
+    var isBottomBarVisible by remember { mutableStateOf(true) }
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                if (available.y < -5f) {
+                    isBottomBarVisible = false
+                } else if (available.y > 5f) {
+                    isBottomBarVisible = true
+                }
+                return Offset.Zero
+            }
+        }
+    }
+
     Scaffold(
+        modifier = Modifier.nestedScroll(nestedScrollConnection),
         topBar = {
             MyTopBar(
                 title = navigationState.title,
@@ -152,30 +177,36 @@ private fun MainScreen(
             )
         },
         bottomBar = {
-            MyBottomBar(
-                currentRoute = currentRoute,
-                onNavigationClick = { route ->
-                    // Handle navigation based on target route
-                    when (route) {
-                        NavDestination.Home.route -> {
-                            if (pagerState.currentPage == 0) {
-                                homeNavController.popBackStack(
-                                    route = NavDestination.Home.route,
-                                    inclusive = false
-                                )
-                            } else {
-                                coroutineScope.launch { pagerState.animateScrollToPage(0) }
+            AnimatedVisibility(
+                visible = isBottomBarVisible,
+                enter = slideInVertically { it },
+                exit = slideOutVertically { it }
+            ) {
+                MyBottomBar(
+                    currentRoute = currentRoute,
+                    onNavigationClick = { route ->
+                        // Handle navigation based on target route
+                        when (route) {
+                            NavDestination.Home.route -> {
+                                if (pagerState.currentPage == 0) {
+                                    homeNavController.popBackStack(
+                                        route = NavDestination.Home.route,
+                                        inclusive = false
+                                    )
+                                } else {
+                                    coroutineScope.launch { pagerState.animateScrollToPage(0) }
+                                }
+                            }
+                            NavDestination.Episodes.route -> {
+                                coroutineScope.launch { pagerState.animateScrollToPage(1) }
+                            }
+                            NavDestination.Dynamic.route -> {
+                                onDynamicClick()
                             }
                         }
-                        NavDestination.Episodes.route -> {
-                            coroutineScope.launch { pagerState.animateScrollToPage(1) }
-                        }
-                        NavDestination.Dynamic.route -> {
-                            onDynamicClick()
-                        }
                     }
-                }
-            )
+                )
+            }
         }
     ) { innerPadding ->
         HorizontalPager(
