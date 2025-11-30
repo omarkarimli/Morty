@@ -1,5 +1,5 @@
 # Morty
-<img src="https://github.com/user-attachments/assets/334d0c63-a62e-4b24-b32c-cb93aa8b218f" alt="intro" height="256" style="margin: 24px;">
+<img src="https://github.com/user-attachments/assets/334d0c63-a62e-4b24-b32c-cb93aa8b218f" alt="intro" height="512" style="margin: 24px;">
 
 Morty is a modern Android application showcasing the Rick and Morty API. It demonstrates modern Android development practices, utilizing Jetpack Compose, Koin, Ktor, and Dynamic Feature Modules.
 
