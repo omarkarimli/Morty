@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
-import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Pause
+import androidx.compose.material.icons.rounded.SaveAlt
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearWavyProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -149,7 +149,7 @@ fun DownloadScreen(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .size(Dimens.dp96),
-                imageVector = Icons.Rounded.Downloading,
+                imageVector = Icons.Rounded.SaveAlt,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
             )

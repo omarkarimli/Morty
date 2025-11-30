@@ -3,6 +3,7 @@ package com.omarkarimli.morty.core.commonui
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.omarkarimli.morty.core.navigation.NavDestination
@@ -29,17 +30,28 @@ fun MyBottomBar(
                 else -> currentRoute == destination.route
             }
 
-            NavigationBarItem(
-                icon = {
+            if (destination == NavDestination.Dynamic) {
+                SmallFloatingActionButton(
+                    onClick = { onNavigationClick(destination.route) }
+                ) {
                     Icon(
                         destination.icon,
                         contentDescription = destination.title,
                     )
-                },
-                label = { Text(destination.title) },
-                selected = isActive,
-                onClick = { onNavigationClick(destination.route) },
-            )
+                }
+            } else {
+                NavigationBarItem(
+                    icon = {
+                        Icon(
+                            destination.icon,
+                            contentDescription = destination.title,
+                        )
+                    },
+                    label = { Text(destination.title) },
+                    selected = isActive,
+                    onClick = { onNavigationClick(destination.route) },
+                )
+            }
         }
     }
 }
