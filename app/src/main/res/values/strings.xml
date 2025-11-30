@@ -2,6 +2,7 @@
 <resources>
     <!-- Application metadata -->
     <string name="app_name">Morty</string>
+    <string name="publisher">© Omar Karimli</string>
 
     <!-- Action buttons and labels -->
     <string name="action_view_all_episodes">View all episodes</string>
@@ -40,4 +41,31 @@
     <string name="preview_data_point_episode_title">Episode</string>
     <string name="title_dynamicfeature">Dynamic Feature</string>
     <string name="title_activity_dynamic_feature">DynamicFeatureActivity</string>
+
+    <!-- Download Screen -->
+    <string name="download_status_idle">Idle</string>
+    <string name="download_status_downloading">Downloading</string>
+    <string name="download_status_installing">Installing</string>
+    <string name="download_status_installed">Installed</string>
+    <string name="download_status_failed">Failed</string>
+    <string name="download_status_canceled">Canceled</string>
+    <string name="download_status_starting">Starting Download...</string>
+    <string name="download_status_error_prefix">Error: %1$s</string>
+    <string name="download_title">Dynamic Download</string>
+    <string name="action_open">Open</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_confirm">Confirm</string>
+
+    <!-- Dynamic Feature Activity -->
+    <string name="feature_new_features">New Features Here</string>
+    <string name="feature_new_features_info">
+    We\'re excited to bring you our biggest update yet, focusing on performance &amp; user experience!
+    \n\nPerformance &amp; Stability:
+    \n- We\'ve reduced app launch time by over 30%%, making the application feel much snappier.
+    \n- Significant improvements to memory management resulting in fewer crashes, especially on older devices.
+    \n\nQuality of Life Improvements:
+    \n- Introducing an advanced search function that supports filtering by date, category, and file type.
+    \n- The integrated tutorial system has been updated with new tips and tricks for maximizing your productivity.
+    </string>
+    <string name="action_completed">Completed</string>
 </resources>

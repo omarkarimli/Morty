@@ -31,10 +31,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
+import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.MyTopBar
 import com.omarkarimli.morty.core.commonui.WideButton
 import com.omarkarimli.morty.core.constants.Constants
@@ -48,7 +50,10 @@ fun DownloadScreen(
     val context = LocalContext.current
     val splitInstallManager = remember { SplitInstallManagerFactory.create(context) }
     var progress by remember { mutableFloatStateOf(0f) }
-    var status by remember { mutableStateOf("Idle") }
+    
+    val idleStatus = stringResource(R.string.download_status_idle)
+    var status by remember { mutableStateOf(idleStatus) }
+    
     var sessionId by remember { mutableIntStateOf(0) }
     var isDownloading by remember { mutableStateOf(false) }
     var isInstalled by remember { mutableStateOf(false) }
@@ -58,27 +63,27 @@ fun DownloadScreen(
             if (state.sessionId() == sessionId) {
                 when (state.status()) {
                     SplitInstallSessionStatus.DOWNLOADING -> {
-                        status = "Downloading"
+                        status = context.getString(R.string.download_status_downloading)
                         val totalBytes = state.totalBytesToDownload()
                         val progressBytes = state.bytesDownloaded()
                         progress = if (totalBytes > 0) progressBytes.toFloat() / totalBytes else 0f
                     }
                     SplitInstallSessionStatus.INSTALLING -> {
-                        status = "Installing"
+                        status = context.getString(R.string.download_status_installing)
                         progress = 1f
                     }
                     SplitInstallSessionStatus.INSTALLED -> {
-                        status = "Installed"
+                        status = context.getString(R.string.download_status_installed)
                         isDownloading = false
                         isInstalled = true
                         progress = 1f
                     }
                     SplitInstallSessionStatus.FAILED -> {
-                        status = "Failed"
+                        status = context.getString(R.string.download_status_failed)
                         isDownloading = false
                     }
                     SplitInstallSessionStatus.CANCELED -> {
-                        status = "Canceled"
+                        status = context.getString(R.string.download_status_canceled)
                         isDownloading = false
                     }
                     else -> {
@@ -93,7 +98,7 @@ fun DownloadScreen(
         splitInstallManager.registerListener(listener)
 
         if (splitInstallManager.installedModules.contains("dynamicfeature")) {
-            status = "Installed"
+            status = context.getString(R.string.download_status_installed)
             isInstalled = true
             progress = 1f
         } else {
@@ -106,10 +111,10 @@ fun DownloadScreen(
                 .addOnSuccessListener { id ->
                     sessionId = id
                     isDownloading = true
-                    status = "Starting Download..."
+                    status = context.getString(R.string.download_status_starting)
                 }
                 .addOnFailureListener { exception ->
-                    status = "Error: ${exception.message}"
+                    status = context.getString(R.string.download_status_error_prefix, exception.message)
                     isDownloading = false
                 }
         }
@@ -122,16 +127,16 @@ fun DownloadScreen(
     Scaffold(
         topBar = {
             MyTopBar(
-                title = "Dynamic Download",
+                title = stringResource(R.string.download_title),
                 showBackButton = true,
                 onBackClick = onBackClick
             )
         }
     ) { innerPadding ->
         val text =
-            if (isInstalled) "Open"
-            else if (isDownloading) "Cancel"
-            else "Confirm"
+            if (isInstalled) stringResource(R.string.action_open)
+            else if (isDownloading) stringResource(R.string.action_cancel)
+            else stringResource(R.string.action_confirm)
             
         val icon =
             if (isInstalled) Icons.Rounded.Check
