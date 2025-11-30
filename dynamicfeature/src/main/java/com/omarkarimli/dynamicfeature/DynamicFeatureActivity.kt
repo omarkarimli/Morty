@@ -25,7 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import com.omarkarimli.dynamicfeature.ui.theme.MortyTheme
+import com.omarkarimli.morty.ui.theme.AppTheme
 import com.omarkarimli.morty.R
 import com.omarkarimli.morty.core.commonui.MyTopBar
 import com.omarkarimli.morty.ui.theme.AppTypography
@@ -36,7 +36,7 @@ class DynamicFeatureActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MortyTheme {
+            AppTheme {
                 DynamicFeatureScreen(activity = this)
             }
         }
