@@ -2,6 +2,7 @@ package com.omarkarimli.morty.core.navigation
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
@@ -13,6 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -70,11 +72,55 @@ private fun getNavigationState(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppNavigation(ktorClient: KtorClient) {
+    val rootNavController = rememberNavController()
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize()
+    ) { innerPadding ->
+        NavHostContainer(
+            innerPadding = innerPadding,
+            rootNavController = rootNavController,
+            ktorClient = ktorClient
+        )
+    }
+}
+
+@Composable
+fun NavHostContainer(
+    innerPadding: PaddingValues,
+    rootNavController: NavHostController,
+    ktorClient: KtorClient
+) {
+    NavHost(
+        navController = rootNavController,
+        startDestination = "main"
+    ) {
+        composable("main") {
+            MainScreen(
+                ktorClient = ktorClient,
+                onDynamicClick = {
+                    rootNavController.navigate(NavDestination.Dynamic.route)
+                }
+            )
+        }
+        composable(NavDestination.Dynamic.route) {
+            DownloadScreen(onBackClick = {
+                rootNavController.navigateUp()
+            })
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun MainScreen(
+    ktorClient: KtorClient,
+    onDynamicClick: () -> Unit
+) {
     val homeNavController = rememberNavController()
-    val pagerState = rememberPagerState(pageCount = { 3 })
+    val pagerState = rememberPagerState(pageCount = { 2 })
     val coroutineScope = rememberCoroutineScope()
 
     // Observe Home Nav Stack
@@ -85,7 +131,6 @@ fun AppNavigation(ktorClient: KtorClient) {
     val currentRoute = when (pagerState.currentPage) {
         0 -> homeCurrentRoute ?: NavDestination.Home.route
         1 -> NavDestination.Episodes.route
-        2 -> NavDestination.Dynamic.route
         else -> NavDestination.Home.route
     }
 
@@ -126,7 +171,7 @@ fun AppNavigation(ktorClient: KtorClient) {
                             coroutineScope.launch { pagerState.animateScrollToPage(1) }
                         }
                         NavDestination.Dynamic.route -> {
-                            coroutineScope.launch { pagerState.animateScrollToPage(2) }
+                            onDynamicClick()
                         }
                     }
                 }
@@ -187,12 +232,6 @@ fun AppNavigation(ktorClient: KtorClient) {
                 1 -> {
                     AllEpisodesScreen()
                     // Handle back press on Episodes tab to go to Home
-                    BackHandler {
-                        coroutineScope.launch { pagerState.animateScrollToPage(0) }
-                    }
-                }
-                2 -> {
-                    DownloadScreen()
                     BackHandler {
                         coroutineScope.launch { pagerState.animateScrollToPage(0) }
                     }

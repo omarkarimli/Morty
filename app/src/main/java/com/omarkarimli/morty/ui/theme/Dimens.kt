@@ -1,6 +1,7 @@
 package com.omarkarimli.morty.ui.theme
 
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object Dimens {
     val dp1 = 1.dp
@@ -16,4 +17,6 @@ object Dimens {
     val dp48 = 48.dp
     val dp64 = 64.dp
     val dp100 = 100.dp
+
+    val LetterSpacingButton = 1.sp
 }

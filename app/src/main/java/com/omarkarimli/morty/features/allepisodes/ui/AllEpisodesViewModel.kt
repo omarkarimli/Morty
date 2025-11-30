@@ -2,7 +2,7 @@ package com.omarkarimli.morty.features.allepisodes.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omarkarimli.morty.core.constants.UiConstants
+import com.omarkarimli.morty.core.constants.Constants
 import com.omarkarimli.morty.features.allepisodes.domain.repository.EpisodesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +27,7 @@ class AllEpisodesViewModel @Inject constructor
                         data = episodeList.groupBy {
                             it.seasonNumber.toString()
                         }.mapKeys {
-                            UiConstants.SEASON_FORMAT.format(it.key)
+                            Constants.SEASON_FORMAT.format(it.key)
                         }
                     )
                 }

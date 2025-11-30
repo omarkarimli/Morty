@@ -3,7 +3,7 @@ package com.omarkarimli.morty.features.characterdetails.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omarkarimli.morty.core.commonui.DataPoint
-import com.omarkarimli.morty.core.constants.UiConstants
+import com.omarkarimli.morty.core.constants.Constants
 import com.omarkarimli.morty.features.characterdetails.domain.repository.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,14 +26,14 @@ class CharacterDetailsViewModel @Inject constructor(
         _internalStorageFlow.update { return@update CharacterDetailsViewState.Loading }
         characterRepository.fetchCharacter(characterId).onSuccess { character ->
             val dataPoints = buildList {
-                add(DataPoint(UiConstants.DATA_POINT_LAST_KNOWN_LOCATION, character.location.name))
-                add(DataPoint(UiConstants.DATA_POINT_SPECIES, character.species))
-                add(DataPoint(UiConstants.DATA_POINT_GENDER, character.gender.displayName))
+                add(DataPoint(Constants.DATA_POINT_LAST_KNOWN_LOCATION, character.location.name))
+                add(DataPoint(Constants.DATA_POINT_SPECIES, character.species))
+                add(DataPoint(Constants.DATA_POINT_GENDER, character.gender.displayName))
                 character.type.takeIf { it.isNotEmpty() }?.let { type ->
-                    add(DataPoint(UiConstants.DATA_POINT_TYPE, type))
+                    add(DataPoint(Constants.DATA_POINT_TYPE, type))
                 }
-                add(DataPoint(UiConstants.DATA_POINT_ORIGIN, character.origin.name))
-                add(DataPoint(UiConstants.DATA_POINT_EPISODE_COUNT, character.episodeIds.size.toString()))
+                add(DataPoint(Constants.DATA_POINT_ORIGIN, character.origin.name))
+                add(DataPoint(Constants.DATA_POINT_EPISODE_COUNT, character.episodeIds.size.toString()))
             }
             _internalStorageFlow.update {
                 return@update CharacterDetailsViewState.Success(
@@ -44,7 +44,7 @@ class CharacterDetailsViewModel @Inject constructor(
         }.onFailure { exception ->
             _internalStorageFlow.update {
                 return@update CharacterDetailsViewState.Error(
-                    message = exception.message ?: UiConstants.UNKNOWN_ERROR
+                    message = exception.message ?: Constants.UNKNOWN_ERROR
                 )
             }
         }

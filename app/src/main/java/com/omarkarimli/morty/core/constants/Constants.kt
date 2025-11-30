@@ -1,6 +1,8 @@
 package com.omarkarimli.morty.core.constants
 
-object UiConstants {
+object Constants {
+    const val DYNAMIC_FEATURE_CLASS_NAME = "com.omarkarimli.dynamicfeature.DynamicFeatureActivity"
+
     // Error
     const val UNKNOWN_ERROR = "An unknown error occurred"
 
