@@ -51,8 +51,9 @@ fun HomeScreen(
             LazyVerticalGrid(
                 state = scrollState,
                 contentPadding = PaddingValues(
-                    horizontal = Dimens.dp16,
-                    vertical = Dimens.dp8
+                    start = Dimens.dp16,
+                    end = Dimens.dp16,
+                    bottom = Dimens.dp16
                 ),
                 verticalArrangement = Arrangement.spacedBy(Dimens.dp8),
                 horizontalArrangement = Arrangement.spacedBy(Dimens.dp8),

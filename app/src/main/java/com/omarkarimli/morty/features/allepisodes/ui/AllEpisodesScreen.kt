@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -36,7 +37,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import org.koin.androidx.compose.koinViewModel
 import com.omarkarimli.morty.R
@@ -90,6 +94,17 @@ fun AllEpisodesScreen(
                     bottom = Dimens.dp16
                 ),
             ) {
+                item("bannerImage") {
+                    Image(
+                        modifier = Modifier
+                            .padding(bottom = Dimens.dp16)
+                            .fillMaxWidth()
+                            .clip(MaterialTheme.shapes.large),
+                        painter = painterResource(id = R.drawable.i1),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop
+                    )
+                }
                 state.data.forEach { mapEntry ->
                     val isExpanded = mapEntry.key == expandedSection
                     stickyHeader(key = "season_${mapEntry.key}") {
@@ -157,11 +172,11 @@ private fun Header(
         ) {
             Text(
                 text = seasonName,
-                style = AppTypography.titleLarge
+                style = AppTypography.titleMedium
             )
             Text(
                 text = stringResource(R.string.label_unique_characters, uniqueCharacterCount),
-                style = AppTypography.titleMedium
+                style = AppTypography.bodyMedium
             )
         }
         IconButton(onClick = onToggle) {

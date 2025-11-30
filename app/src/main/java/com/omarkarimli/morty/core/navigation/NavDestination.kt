@@ -11,7 +11,12 @@ import androidx.compose.material.icons.rounded.Add
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.omarkarimli.morty.R
 
-sealed class NavDestination(@StringRes val titleResId: Int, val route: String, val selectedIcon: ImageVector, val unselectedIcon: ImageVector) {
+sealed class NavDestination(
+    @param:StringRes val titleResId: Int,
+    val route: String,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector
+) {
     object Home : NavDestination(
         titleResId = R.string.nav_title_home,
         route = "home_screen",

@@ -84,7 +84,7 @@ fun DynamicFeatureScreen(activity: Activity) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(MaterialTheme.shapes.large),
-                painter = painterResource(id = R.drawable.i1),
+                painter = painterResource(id = R.drawable.i2),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
