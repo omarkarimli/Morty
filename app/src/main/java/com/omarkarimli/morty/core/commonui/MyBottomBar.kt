@@ -14,8 +14,8 @@ fun MyBottomBar(
 ) {
     val navigationItems = listOf(
         NavDestination.Home,
-        NavDestination.Episodes,
-        NavDestination.Dynamic
+        NavDestination.Dynamic,
+        NavDestination.Episodes
     )
 
     NavigationBar {
