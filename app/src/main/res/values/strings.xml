@@ -21,24 +21,10 @@
     <string name="data_point_type">Type</string>
     <string name="data_point_origin">Origin</string>
     <string name="data_point_episode_count">Episode count</string>
-    <string name="data_point_name">Name</string>
     <string name="data_point_episode">Episode</string>
-
-    <!-- Status -->
-    <string name="status_alive">Alive</string>
-    <string name="status_dead">Dead</string>
-    <string name="status_unknown">Unknown</string>
-
-    <!-- Gender -->
-    <string name="gender_male">Male</string>
-    <string name="gender_female">Female</string>
-    <string name="gender_genderless">No gender</string>
-    <string name="gender_unknown">Not specified</string>
 
     <!-- Preview and test strings -->
     <string name="preview_character_name_rick">Rick Sanchez</string>
-    <string name="preview_data_point_name_title">Name</string>
-    <string name="preview_data_point_episode_title">Episode</string>
     <string name="title_dynamicfeature">Dynamic Feature</string>
     <string name="title_activity_dynamic_feature">DynamicFeatureActivity</string>
 
@@ -49,7 +35,7 @@
     <string name="download_status_installed">Installed</string>
     <string name="download_status_failed">Failed</string>
     <string name="download_status_canceled">Canceled</string>
-    <string name="download_status_starting">Starting Download...</string>
+    <string name="download_status_starting">Starting Download…</string>
     <string name="download_status_error_prefix">Error: %1$s</string>
     <string name="download_title">Dynamic Download</string>
     <string name="action_open">Open</string>
@@ -64,5 +50,4 @@
     \n- We\'ve reduced app launch time by over 30%, making the application feel much snappier.
     \n- Significant improvements to memory management resulting in fewer crashes, especially on older devices.
     </string>
-    <string name="action_completed">Completed</string>
 </resources>

@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Error messages displayed to users -->
-    
     <!-- Generic errors -->
     <string name="error_generic">Something went wrong</string>
     <string name="error_network">Whoops, something went wrong</string>
-    <string name="error_unknown">An unknown error occurred</string>
-
-    <!-- Specific error contexts -->
-
 </resources>
